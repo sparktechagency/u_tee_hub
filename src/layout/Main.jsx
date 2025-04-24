@@ -28,7 +28,7 @@ const Main = () => {
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
         <MainHeader toggleSidebar={toggleSidebar} />
-        <main className="flex-1 overflow-x-hidden overflow-y-auto  p-4 sm:p-6 md:p-8 lg:p-10 bg-[#F4F5F9]">
+        <main className="flex-1 overflow-x-hidden overflow-y-auto  px-8 pt-3 bg-[#F4F5F9]">
                   
           <Outlet></Outlet>
         </main>

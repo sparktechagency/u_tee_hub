@@ -3,6 +3,8 @@ import { useState } from "react";
 import dayjs from "dayjs";
 import { IoSearch } from "react-icons/io5";
 import Overview from "../../components/Overview/Overview";
+import ClientGrowth from "../../components/ClientGrowth/ClientGrowth";
+import TotalEarning from "../../components/TotalEarning/TotalEarning";
 
 function DashboardPage() {
   const currentYear = dayjs().year();
@@ -22,7 +24,7 @@ function DashboardPage() {
 
   return (
     <div className="flex flex-col">
-      <div className="flex justify-between items-center ">
+      <div className="flex justify-between items-center pt-0 mt-0 mb-1">
         <div>
           <p className="text-[#35BEBD] font-title text-3xl font-bold">
             Dashboard
@@ -43,8 +45,8 @@ function DashboardPage() {
       </div>
       {/* main content */}
 <Overview/>
-
-
+<ClientGrowth/>
+<TotalEarning/>
     </div>
   );
 }
