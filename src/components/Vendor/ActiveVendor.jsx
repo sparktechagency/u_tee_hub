@@ -1,5 +1,6 @@
 import { BsArrowRight } from "react-icons/bs";
 import vendor from "../../assets/Ellipse 204.png"
+import { Link } from "react-router-dom";
 
 const ActiveVendor = () => {
     return (
@@ -42,10 +43,12 @@ const ActiveVendor = () => {
           <button className="px-4 py-1.5 border border-red-400 text-red-400 text-sm font-medium rounded-md hover:bg-red-50">
             Rejected
           </button>
-          <button className="px-4 py-1.5 border border-teal-500 text-teal-500 text-sm font-medium rounded-md hover:bg-teal-50 flex items-center gap-1">
+        <Link to="/ownerDetails">
+        <button className="px-4 py-1.5 border border-teal-500 text-teal-500 text-sm font-medium rounded-md hover:bg-teal-50 flex items-center gap-1">
             View
             <BsArrowRight size={16} />
           </button>
+        </Link>
         </div>
       </div>
     );

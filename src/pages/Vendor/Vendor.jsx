@@ -33,7 +33,7 @@ const Vendor = () => {
       <ActiveVendor/>
       <ActiveVendor/>
    
-      </div>
+      </div> 
         </div>
     );
 };

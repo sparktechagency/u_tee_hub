@@ -9,6 +9,7 @@ import Verify from "../pages/Verify/Verify";
 import ForgotPass from "../pages/ForgotPass/ForgotPass";
 import SetPass from "../pages/SetPass/SetPass";
 import Vendor from "../pages/Vendor/Vendor";
+import OwnerDetails from "../pages/OwnerDetails/OwnerDetails";
 
   
   const router = createBrowserRouter([
@@ -40,6 +41,10 @@ import Vendor from "../pages/Vendor/Vendor";
           {
             path: "/vendor",
             element: <Vendor/>,
+          },
+          {
+            path: "/ownerDetails",
+            element: <OwnerDetails/>,
           },
         ]
     },
