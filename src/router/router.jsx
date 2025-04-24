@@ -7,6 +7,7 @@ import DashboardPage from "../pages/DashboardPage/DashboardPage";
 import Signin from "../pages/Signin/Signin";
 import Verify from "../pages/Verify/Verify";
 import ForgotPass from "../pages/ForgotPass/ForgotPass";
+import SetPass from "../pages/SetPass/SetPass";
 
   
   const router = createBrowserRouter([
@@ -21,6 +22,10 @@ import ForgotPass from "../pages/ForgotPass/ForgotPass";
     {
       path: "/forget-password",
       element: <ForgotPass/>,
+    },
+    {
+      path: "/setPass",
+      element: <SetPass/>,
     },
     {
         path: "/",

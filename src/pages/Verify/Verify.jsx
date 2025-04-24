@@ -20,7 +20,7 @@ const Verify = () => {
     console.log("Form submitted:", values); // Display form values in the console
     setLoading(true);
     // Add your form submission logic here
-    navigate("/validation");
+    navigate("/");
   };
   return (
     <div className="max-w-7xl mx-auto w-full flex md:flex-row flex-col justify-center items-center gap-8 md:ml-16 lg:ml-96">
