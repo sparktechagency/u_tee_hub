@@ -72,7 +72,7 @@ const user = true;
             }`}
           >
             <FaRegUser className="w-5 h-5" />
-            <p className="text-lg font-semibold">User</p>
+            <p className="text-lg font-semibold">Client</p>
           </li>
         </Link>
         
@@ -80,7 +80,7 @@ const user = true;
         <Link to="/vendor">
           <li
             className={`flex items-center gap-2 mt-5 cursor-pointer transition-all duration-300 ease-in-out ${
-              isActive("/services") ? "bg-[#00c0b5] text-white px-3 py-3 rounded-2xl" : ""
+              isActive("/vendor") ? "bg-[#00c0b5] text-white px-3 py-3 rounded-2xl" : ""
             }`}
           >
             <FaRegUser className="w-5 h-5" />

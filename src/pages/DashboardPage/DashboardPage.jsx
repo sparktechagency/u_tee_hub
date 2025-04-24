@@ -5,6 +5,7 @@ import { IoSearch } from "react-icons/io5";
 import Overview from "../../components/Overview/Overview";
 import ClientGrowth from "../../components/ClientGrowth/ClientGrowth";
 import TotalEarning from "../../components/TotalEarning/TotalEarning";
+import { Input } from "antd";
 
 function DashboardPage() {
   const currentYear = dayjs().year();
@@ -32,7 +33,7 @@ function DashboardPage() {
         </div>
         <div>
           <div className="relative w-full sm:w-[300px] ">
-            <input
+            <Input
               type="text"
               placeholder="Search anything here..."
               className="border border-[#e5eaf2] py-3   outline-none w-full rounded-full px-3"
