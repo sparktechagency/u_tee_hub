@@ -5,14 +5,15 @@ import { FcGoogle } from "react-icons/fc";
 import { IoEyeOutline } from "react-icons/io5";
 
 import logo from "../../assets/Logo.png";
-import login from "../../assets/login.png";
+import forgotPass from "../../assets/forgotPass.png";
 import { Link, useNavigate } from "react-router-dom";
+import { MdKeyboardArrowLeft } from "react-icons/md";
 
 const { Title, Text } = Typography;
 
-const Signin = () => {
+const ForgotPass = () => {
   const navigate = useNavigate();
-  const [showPassword, setShowPassword] = useState(false);
+  const [showCode, setShowCode] = useState(false);
   const [loading, setLoading] = useState(false);
 
   const onFinish = (values) => {
@@ -39,21 +40,26 @@ const Signin = () => {
 
           {/* Form Container */}
           <div className="max-w-md">
+          <Link to="/sign-in"  className=" mb-2 flex items-center text-black">
+            <MdKeyboardArrowLeft className="" size={24}/> Back to login
+            </Link>
             <Title level={2} className="text-gray-800 mb-2">
-              Login
+            Forgot your password?
             </Title>
             <Text className="text-gray-600 mb-8">
-              Login to access your U Tee Hub account
+            Don’t worry, happens to all of us. Enter your email below to recover your password
             </Text>
 
             <Form
-              name="login"
+              name="verify"
               onFinish={onFinish}
               className="space-y-6"
               initialValues={{ remember: true }}
             >
-              {/* Email Field */}
-              <div className="relative mt-3">
+  
+
+             {/* Email Field */}
+             <div className="relative mt-3">
                 <Form.Item
                   name="email"
                   rules={[
@@ -76,60 +82,17 @@ const Signin = () => {
                 </Form.Item>
               </div>
 
-              {/* Password Field */}
-              <div className="relative pt-2">
-                <Form.Item
-                  name="password" // This binds the input to form state
-                  rules={[
-                    { required: true, message: "Please input your password!" },
-                  ]}
-                >
-                  <div className="">
-                    <label className="absolute z-30 -top-3 left-3 px-1 text-lg bg-white">
-                      Password
-                    </label>
-                    <Input
-                      type={showPassword ? "text" : "password"}
-                      placeholder="••••••••••••••••••"
-                      className="w-full px-3 py-5 border border-[#35BEBD] rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
-                    />
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                      className="absolute inset-y-0 right-0 pr-3 flex items-center"
-                    >
-                      {showPassword ? (
-                        <FaRegEyeSlash className="h-5 w-5 text-gray-400" />
-                      ) : (
-                        <IoEyeOutline className="h-5 w-5 text-gray-400" />
-                      )}
-                    </button>
-                  </div>
-                </Form.Item>
-              </div>
-
               {/* Remember Me and Forgot Password */}
               <div className="flex justify-between">
-                <div>
-                  <Form.Item name="remember" valuePropName="checked">
-                    <Checkbox>Remember me</Checkbox>
-                  </Form.Item>
-                </div>
-                <div>
-                  <Link to="/forget-password"
-                    href="#"
-                    className="text-sm text-[#ff6b6b] hover:text-[#ff5252]"
-                  >
-                    Forgot Password
-                  </Link>
-                </div>
+         <p className="text-sm text-black">Didn’t receive a code? <span className="text-[#FF8682]">Resend</span></p>
+                
               </div>
 
-              {/* Login Button */}
+              {/* Verify Button */}
               <Form.Item>
                 <button
                   type="submit"
-                  className="w-full flex text-xl items-center justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-white bg-[#30c1c1] hover:bg-[#25a0a0] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-colors"
+                  className="w-full flex text-xl items-center justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-white bg-[#35BEBD] hover:bg-[#25a0a0] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 transition-colors"
                 >
                   {loading ? (
                     <svg
@@ -153,7 +116,7 @@ const Signin = () => {
                       ></path>
                     </svg>
                   ) : null}
-                  Login
+             Submit
                 </button>
               </Form.Item>
             </Form>
@@ -183,10 +146,10 @@ const Signin = () => {
       </div>
 
       <div className="w-1/2">
-        <img src={login} alt="Login Image" className="w-[70%] mt-20" />
+        <img src={forgotPass} alt="Login Image" className="w-[70%] mt-20" />
       </div>
     </div>
   );
 };
 
-export default Signin;
+export default ForgotPass;
