@@ -1,12 +1,12 @@
 
 import { useNavigate } from "react-router-dom";
-
+import anita from "../../assets/Anita.png"
 const MainHeader = ({ toggleSidebar }) => {
   const navigate = useNavigate();
 
   return (
     <div className="relative ">
-      <header className="bg-[#00c0b5] shadow-sm">
+      <header className=" bg-white shadow-sm">
         <div className="flex justify-end items-center px-5 md:px-10 h-[80px]">
           {/* <div onClick={() => navigate("/")}>
        
@@ -15,16 +15,19 @@ const MainHeader = ({ toggleSidebar }) => {
           <div className="flex">
             <div
               onClick={() => navigate("/profile")}
-              className="flex items-center gap-2 cursor-default"
+              className="flex items-center gap-2 cursor-default bg-[#00c0b5] px-5 py-2 rounded-2xl"
             >
               <img
-                src="https://avatar.iran.liara.run/public/31"
+                src={anita}
                 className="w-8 md:w-12 h-8 md:h-12 object-cover rounded-full"
                 alt="User Avatar"
               />
-              <h3 className="hidden md:block text-white text-lg font-semibold">
-                Mr. Admin
+             <div>
+             <h3 className="hidden md:block text-white text-lg font-semibold">
+              Anita Cruz
               </h3>
+              <p>Admin</p>
+             </div>
             </div>
             <button
               onClick={toggleSidebar}
