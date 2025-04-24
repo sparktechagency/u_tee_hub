@@ -19,7 +19,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
   const location = useLocation();
   const currentPath = location.pathname;
   const [isSettingsOpen, setIsSettingsOpen] = useState(false); // Track the dropdown state
-
+const user = true;
   // Check if current path matches a menu item
   const isActive = (path) => currentPath === path;
 
@@ -188,14 +188,28 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
 
       {/* Logout Button */}
       <div className="absolute bottom-5  w-[90%] px-5">
-  <Link to="/sign-in">
+  {
+    user? (
+      <Link to="/sign-in">
     <button
       className="flex items-center gap-2 w-full px-0 py-3 border-2 border-[#00c0b5] text-[#00c0b5] hover:bg-[#00c0b5] hover:text-white rounded-xl duration-200 justify-center"
     >
-       <IoLogInOutline className="w-7 h-7 font-bold text-2xl" />
-      <span className="text-lg text-title font-bold">Logout</span>
+    
+      <span className="text-lg text-title font-bold">Login</span>
     </button>
   </Link>
+
+    ):(
+      <Link to="">
+      <button
+        className="flex items-center gap-2 w-full px-0 py-3 border-2 border-[#00c0b5] text-[#00c0b5] hover:bg-[#00c0b5] hover:text-white rounded-xl duration-200 justify-center"
+      >
+         <IoLogInOutline className="w-7 h-7 font-bold text-2xl" />
+        <span className="text-lg text-title font-bold">Logout</span>
+      </button>
+    </Link>
+    )
+  }
 </div>
 
     </div>
