@@ -10,6 +10,8 @@ import ForgotPass from "../pages/ForgotPass/ForgotPass";
 import SetPass from "../pages/SetPass/SetPass";
 import Vendor from "../pages/Vendor/Vendor";
 import OwnerDetails from "../pages/OwnerDetails/OwnerDetails";
+import Accept from "../components/Vendor/Accept";
+import Reject from "../components/Vendor/Reject";
 
   
   const router = createBrowserRouter([
@@ -45,6 +47,14 @@ import OwnerDetails from "../pages/OwnerDetails/OwnerDetails";
           {
             path: "/ownerDetails",
             element: <OwnerDetails/>,
+          },
+          {
+            path: "/accept",
+            element: <Accept/>,
+          },
+          {
+            path: "/rejected",
+            element: <Reject/>,
           },
         ]
     },

@@ -37,12 +37,15 @@ const ActiveVendor = () => {
         
         {/* Action Buttons */}
         <div className="flex justify-between p-3 gap-2">
-          <button className="px-4 py-1.5 border border-teal-500 text-teal-500 text-sm font-medium rounded-md hover:bg-teal-50">
+        <Link to={"/accept"}>
+        <button className="px-4 py-1.5 border border-teal-500 text-teal-500 text-sm font-medium rounded-md hover:bg-teal-50">
             Accept
           </button>
-          <button className="px-4 py-1.5 border border-red-400 text-red-400 text-sm font-medium rounded-md hover:bg-red-50">
+        </Link>
+       <Link to={"/rejected"}>
+       <button className="px-4 py-1.5 border border-red-400 text-red-400 text-sm font-medium rounded-md hover:bg-red-50">
             Rejected
-          </button>
+          </button></Link>
         <Link to="/ownerDetails">
         <button className="px-4 py-1.5 border border-teal-500 text-teal-500 text-sm font-medium rounded-md hover:bg-teal-50 flex items-center gap-1">
             View
