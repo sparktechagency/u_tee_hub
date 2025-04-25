@@ -1,6 +1,7 @@
 import React from 'react';
 
 const Reject = () => {
+
     return (
         <div className="max-w-sm mx-auto bg-white rounded-xl shadow-md p-6    mt-8 md:mt-64">
         <h2 className="text-lg font-semibold text-black mb-2">Dear Shuvo</h2>
