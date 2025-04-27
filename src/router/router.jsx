@@ -14,6 +14,8 @@ import Accept from "../components/Vendor/Accept";
 import Reject from "../components/Vendor/Reject";
 import Client from "../pages/Client/Client";
 import ClientDetails from "../components/Client/ClientDetails";
+import OrderPage from "../pages/OrderPage/OrderPage";
+import OrderDetails from "../components/Order/OrderDetails";
 
   
   const router = createBrowserRouter([
@@ -59,6 +61,10 @@ import ClientDetails from "../components/Client/ClientDetails";
             element: <Reject/>,
           },
           {
+            path: "/order",
+            element: <OrderPage/>,
+          },
+          {
             path: "/client",
             element: <Client/>,
           },
@@ -66,6 +72,11 @@ import ClientDetails from "../components/Client/ClientDetails";
             // Dynamic route for client details
             path: "/client/:id",
             element: <ClientDetails />, 
+          },
+          {
+            // Dynamic route for client details
+            path: "/order/:id",
+            element: <OrderDetails />, 
           },
         ]
     },

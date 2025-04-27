@@ -97,7 +97,7 @@ const handleReject=()=>{
        
        
         confirmButtonColor: "#DD1A1D",
-    
+     
         confirmButtonText: "Rejected"
       }).then((result) => {
         if (result.isConfirmed) {
