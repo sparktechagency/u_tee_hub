@@ -1,6 +1,7 @@
 
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import anita from "../../assets/Anita.png"
+import { IoIosNotificationsOutline } from "react-icons/io";
 const MainHeader = ({ toggleSidebar }) => {
   const navigate = useNavigate();
 
@@ -12,7 +13,10 @@ const MainHeader = ({ toggleSidebar }) => {
        
             <h1 className="text-3xl text-white font-bold">DASHBOARD</h1>
           </div> */}
-          <div className="flex">
+          <div className="flex gap-5 items-center">
+            <div>
+        <Link to={"/notification"}>    <IoIosNotificationsOutline className="text-[#35BEBD] text-3xl "/></Link>
+            </div>
             <div
               onClick={() => navigate("/profile")}
               className="flex items-center gap-2 cursor-default bg-[#00c0b5] px-5 py-2 rounded-2xl"
@@ -28,6 +32,7 @@ const MainHeader = ({ toggleSidebar }) => {
               </h3>
               <p>Admin</p>
              </div>
+   
             </div>
             <button
               onClick={toggleSidebar}

@@ -172,7 +172,7 @@ const user = true;
                 <p className="text-lg font-semibold">FAQ</p>
               </li>
             </Link>
-            <Link to="/">
+            <Link to="/setting/support">
               <li
                 className={`pb-2 flex items-center gap-2 transition-all duration-300 ease-in-out ${
                   isActive("/setting/support") ? "text-[#00c0b5]" : ""

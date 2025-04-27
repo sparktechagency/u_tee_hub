@@ -20,6 +20,8 @@ import AboutUs from "../pages/SettingPage/AboutUs";
 import PrivacyPolicy from "../pages/SettingPage/PrivacyPolicy";
 import TermsCondition from "../pages/SettingPage/TermsCondition";
 import FAQ from "../pages/SettingPage/FAQ";
+import Support from "../pages/SettingPage/Support";
+import Notification from "../pages/Notification/Notification";
 
   
   const router = createBrowserRouter([
@@ -65,6 +67,10 @@ import FAQ from "../pages/SettingPage/FAQ";
             element: <Reject/>,
           },
           {
+            path: "/notification",
+            element: <Notification/>,
+          },
+          {
             path: "/order",
             element: <OrderPage/>,
           },
@@ -83,6 +89,10 @@ import FAQ from "../pages/SettingPage/FAQ";
           {
             path: "/setting/faq",
             element: <FAQ/>,
+          },
+          {
+            path: "/setting/support",
+            element: <Support/>,
           },
           {
             path: "/client",
