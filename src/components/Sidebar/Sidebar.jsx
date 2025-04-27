@@ -129,10 +129,10 @@ const user = true;
         {/* Settings Submenu */}
         {isSettingsOpen && (
           <ul className="text-right py-3 ">
-            <Link to="/">
+            <Link to="/setting/aboutUs">
               <li
                 className={`py-[5px] flex items-center gap-2 transition-all duration-300 ease-in-out ${
-                  isActive("/setting/about-us") ? "text-[#00c0b5]" : ""
+                  isActive("/setting/aboutUs") ? "text-[#00c0b5]" : ""
                 }`}
               >
                 <IoMdInformationCircleOutline className="w-5 h-5 text-lg font-semibold" />

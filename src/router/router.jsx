@@ -16,6 +16,7 @@ import Client from "../pages/Client/Client";
 import ClientDetails from "../components/Client/ClientDetails";
 import OrderPage from "../pages/OrderPage/OrderPage";
 import OrderDetails from "../components/Order/OrderDetails";
+import AboutUs from "../pages/SettingPage/AboutUs";
 
   
   const router = createBrowserRouter([
@@ -63,6 +64,10 @@ import OrderDetails from "../components/Order/OrderDetails";
           {
             path: "/order",
             element: <OrderPage/>,
+          },
+          {
+            path: "/setting/aboutUs",
+            element: <AboutUs/>,
           },
           {
             path: "/client",
