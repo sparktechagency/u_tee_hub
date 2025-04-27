@@ -16,11 +16,11 @@ function AboutUs() {
 
   return (
     <div className="p-5 bg-white">
-      <h1 className="text-start text-3xl font-bold mb-5 text-[#35BEBD]">About Us</h1>
+      <h1 className="text-start text-3xl font-bold mb-5 text-[#35BEBD] font-title">About Us</h1>
 
       <div className="rounded shadow p-5 h-full text-black">
         <ReactQuill
-          style={{ padding: "5px" }}
+          style={{ padding: "5px" }}           
           theme="snow"
           value={content}
           onChange={setContent}

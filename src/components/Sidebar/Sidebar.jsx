@@ -140,10 +140,10 @@ const user = true;
               </li>
             </Link>
 
-            <Link to="/">
+            <Link to="/setting/privacy">
               <li
                 className={`py-2 flex items-center gap-2 transition-all duration-300 ease-in-out ${
-                  isActive("/") ? "text-[#00c0b5]" : ""
+                  isActive("/setting/privacy") ? "text-[#00c0b5]" : ""
                 }`}
               >
                 <MdOutlinePrivacyTip className="w-5 h-5 text-lg font-semibold" />
@@ -151,10 +151,10 @@ const user = true;
               </li>
             </Link>
 
-            <Link to="/">
+            <Link to="/setting/policy">
               <li
                 className={`pb-2 flex items-center gap-2 transition-all duration-300 ease-in-out ${
-                  isActive("/setting/terms-and-condition") ? "text-[#00c0b5]" : ""
+                  isActive("/setting/policy") ? "text-[#00c0b5]" : ""
                 }`}
               >
                 <FaRegBookmark className="w-5 h-5 text-lg font-semibold" />
@@ -162,7 +162,7 @@ const user = true;
               </li>
             </Link>
 
-            <Link to="/">
+            <Link to="/setting/faq">
               <li
                 className={`pb-2 flex items-center gap-2 transition-all duration-300 ease-in-out ${
                   isActive("/setting/faq") ? "text-[#00c0b5]" : ""

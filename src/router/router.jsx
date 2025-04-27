@@ -17,6 +17,9 @@ import ClientDetails from "../components/Client/ClientDetails";
 import OrderPage from "../pages/OrderPage/OrderPage";
 import OrderDetails from "../components/Order/OrderDetails";
 import AboutUs from "../pages/SettingPage/AboutUs";
+import PrivacyPolicy from "../pages/SettingPage/PrivacyPolicy";
+import TermsCondition from "../pages/SettingPage/TermsCondition";
+import FAQ from "../pages/SettingPage/FAQ";
 
   
   const router = createBrowserRouter([
@@ -68,6 +71,18 @@ import AboutUs from "../pages/SettingPage/AboutUs";
           {
             path: "/setting/aboutUs",
             element: <AboutUs/>,
+          },
+          {
+            path: "/setting/privacy",
+            element: <PrivacyPolicy/>,
+          },
+          {
+            path: "/setting/policy",
+            element: <TermsCondition/>,
+          },
+          {
+            path: "/setting/faq",
+            element: <FAQ/>,
           },
           {
             path: "/client",
