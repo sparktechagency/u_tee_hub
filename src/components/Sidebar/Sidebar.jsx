@@ -11,7 +11,7 @@ import { RxDashboard } from "react-icons/rx";
 import { MdOutlinePrivacyTip } from "react-icons/md";
 import { SlArrowDown } from "react-icons/sl";
 import { GoQuestion } from "react-icons/go";
-import { TbBrandWechat } from "react-icons/tb";
+ 
 import { LuSquareMenu } from "react-icons/lu";
 import { useState } from "react"; // Import useState
 import logo from "../../assets/Logo.png"
@@ -64,11 +64,11 @@ const user = true;
           </li>
         </Link>
 
-        {/* User Details Page */}
-        <Link to="/">
+        {/* User Page */}
+        <Link to="/client">
           <li
             className={`flex items-center gap-2 mt-5 cursor-pointer transition-all duration-300 ease-in-out ${
-              isActive("/user") ? "bg-[#00c0b5] text-white px-3 py-3 rounded-2xl" : ""
+              isActive("/client") ? "bg-[#00c0b5] text-white px-3 py-3 rounded-2xl" : ""
             }`}
           >
             <FaRegUser className="w-5 h-5" />

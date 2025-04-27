@@ -12,6 +12,8 @@ import Vendor from "../pages/Vendor/Vendor";
 import OwnerDetails from "../pages/OwnerDetails/OwnerDetails";
 import Accept from "../components/Vendor/Accept";
 import Reject from "../components/Vendor/Reject";
+import Client from "../pages/Client/Client";
+import ClientDetails from "../components/Client/ClientDetails";
 
   
   const router = createBrowserRouter([
@@ -55,6 +57,15 @@ import Reject from "../components/Vendor/Reject";
           {
             path: "/rejected",
             element: <Reject/>,
+          },
+          {
+            path: "/client",
+            element: <Client/>,
+          },
+          {
+            // Dynamic route for client details
+            path: "/client/:id",
+            element: <ClientDetails />, 
           },
         ]
     },
