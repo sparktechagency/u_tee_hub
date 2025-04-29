@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const Notification = () => {
   return (
@@ -7,7 +8,8 @@ const Notification = () => {
         Notification
       </h1>
       <div>
-        <div className="flex justify-between p-3 bg-[#EBFFFF] text-black font-title">
+
+ <div className="flex justify-between p-3 bg-[#EBFFFF] text-black font-title">
           <div>
             <div className="flex gap-5">
               <p>New message received</p>
@@ -20,12 +22,16 @@ const Notification = () => {
             </div>
           </div>
           <div>
+          <Link  to={`/notification/${1}`}>
+
             <button className="bg-teal-400 hover:bg-teal-500 text-white font-semibold py-2 px-6  mx-auto block rounded-xl">
               View
             </button>
+          </Link>
           </div>
         </div>
-        {/* copy card */}
+
+        {/* demo copy card */}
         <div className="flex justify-between p-3 bg-[#EBFFFF] text-black font-title mt-5">
           <div>
             <div className="flex gap-5">

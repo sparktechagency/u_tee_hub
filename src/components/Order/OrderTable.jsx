@@ -14,7 +14,7 @@ const OrderTable = ({order}) => {
       setIsModalOpen(false);
     };
 
-      const columns = [
+      const columns = [   
         {
           title: "Order ID",
           dataIndex: "orderId",

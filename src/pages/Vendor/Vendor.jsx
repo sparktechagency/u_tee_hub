@@ -2,14 +2,13 @@ import { Input } from "antd";
 import ActiveVendor from "../../components/Vendor/ActiveVendor";
 import { IoSearch } from "react-icons/io5";
 
-
 const Vendor = () => {
-    return (
-        <div>
-                  <div className="flex justify-between items-center pt-0  my-3">
+  return (
+    <div>
+      <div className="flex justify-between items-center pt-0  my-3">
         <div>
           <p className="text-[#35BEBD] font-title text-3xl font-bold">
-          Active Vendor
+            Active Vendor
           </p>
         </div>
         <div>
@@ -26,16 +25,15 @@ const Vendor = () => {
         </div>
       </div>
       <div className="grid grid-cols-3 gap-5">
-      <ActiveVendor/>
-      <ActiveVendor/>
-      <ActiveVendor/>
-      <ActiveVendor/>
-      <ActiveVendor/>
-      <ActiveVendor/>
-   
-      </div> 
-        </div>
-    );
+        <ActiveVendor />
+        <ActiveVendor />
+        <ActiveVendor />
+        <ActiveVendor />
+        <ActiveVendor />
+        <ActiveVendor />
+      </div>
+    </div>
+  );
 };
 
 export default Vendor;

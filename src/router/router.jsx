@@ -22,6 +22,8 @@ import TermsCondition from "../pages/SettingPage/TermsCondition";
 import FAQ from "../pages/SettingPage/FAQ";
 import Support from "../pages/SettingPage/Support";
 import Notification from "../pages/Notification/Notification";
+import NotificationDetails from "../pages/Notification/NotificationDetails";
+import MakeVendor from "../pages/MakeVendor/MakeVendor";
 
   
   const router = createBrowserRouter([
@@ -67,6 +69,10 @@ import Notification from "../pages/Notification/Notification";
             element: <Reject/>,
           },
           {
+            path: "/makeVendor",
+            element: <MakeVendor/>,
+          },
+          {
             path: "/notification",
             element: <Notification/>,
           },
@@ -107,6 +113,11 @@ import Notification from "../pages/Notification/Notification";
             // Dynamic route for client details
             path: "/order/:id",
             element: <OrderDetails />, 
+          },
+          {
+            // Dynamic route for client details
+            path: "/notification/:id",
+            element: <NotificationDetails />, 
           },
         ]
     },
