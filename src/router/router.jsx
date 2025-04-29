@@ -25,6 +25,9 @@ import Notification from "../pages/Notification/Notification";
 import NotificationDetails from "../pages/Notification/NotificationDetails";
 import MakeVendor from "../pages/MakeVendor/MakeVendor";
 
+import ProfilePage from "../pages/Profile/ProfilePage";
+import ChangePass from "../pages/Profile/ChangePass";
+
   
   const router = createBrowserRouter([
     {
@@ -71,6 +74,14 @@ import MakeVendor from "../pages/MakeVendor/MakeVendor";
           {
             path: "/makeVendor",
             element: <MakeVendor/>,
+          },
+          {
+            path: "/profile",
+            element: <ProfilePage/>,
+          },
+          {
+            path: "/changePass",
+            element: <ChangePass/>,
           },
           {
             path: "/notification",
