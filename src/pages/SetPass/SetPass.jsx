@@ -17,7 +17,7 @@ const SetPass = () => {
   const [loading, setLoading] = useState(false);
 
   const onFinish = (values) => {
-    console.log("Form submitted:", values); // Display form values in the console
+    // console.log("Form submitted:", values); 
     setLoading(true);
     // Add your form submission logic here
     navigate("/validation");
