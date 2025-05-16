@@ -82,11 +82,7 @@ const ForgotPass = () => {
                 </Form.Item>
               </div>
 
-              {/* Remember Me and Forgot Password */}
-              <div className="flex justify-between">
-         <p className="text-sm text-black">Didn’t receive a code? <span className="text-[#FF8682]">Resend</span></p>
-                
-              </div>
+  
 
               {/* Verify Button */}
               <Form.Item>
