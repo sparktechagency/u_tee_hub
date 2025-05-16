@@ -38,7 +38,7 @@ const ForgotPass = () => {
             />
           </div>
 
-          {/* Form Container */}
+          {/* Form Container --- */}
           <div className="max-w-md">
           <Link to="/sign-in"  className=" mb-2 flex items-center text-black">
             <MdKeyboardArrowLeft className="" size={24}/> Back to login
