@@ -25,7 +25,7 @@ const ForgotPass = () => {
   return (
     <div className="max-w-7xl mx-auto w-full flex md:flex-row flex-col justify-center items-center gap-8 md:ml-16 lg:ml-96">
       <div className="flex w-1/2 bg-white rounded-lg overflow-hidden font-title">
-        {/* Left Section - Form */}
+        {/* Left Section --- Form */}
         <div className="flex-1 p-10 flex flex-col">
           {/* Logo */}
           <div className="mb-10">
