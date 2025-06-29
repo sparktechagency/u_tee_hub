@@ -5,10 +5,9 @@ import { FcGoogle } from "react-icons/fc";
 import { IoEyeOutline } from "react-icons/io5";
 
 import logo from "../../assets/Logo.png";
-import login from "../../assets/login.png";
+import loginImg from "../../assets/login.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useLoginMutation } from "../../../redux/features/auth/authApi";
-import { toast } from "react-toastify";
 
 const { Title, Text } = Typography;
 
@@ -180,11 +179,11 @@ const [login]=useLoginMutation();
             </Form>
 
             {/* Divider */}
-            <div className="relative flex justify-center text-sm mt-5">
+            {/* <div className="relative flex justify-center text-sm mt-5">
               <Divider>Or login with</Divider>
             </div>
 
-            {/* Social Login */}
+   
             <div className="mt-6 grid grid-cols-2 gap-3">
               <button
                 type="button"
@@ -198,13 +197,13 @@ const [login]=useLoginMutation();
               >
                 <FaApple className="h-7 w-7 text-black" />
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
 
       <div className="w-1/2">
-        <img src={login} alt="Login Image" className="w-[70%] mt-20" />
+        <img src={loginImg} alt="Login Image" className="w-[70%] mt-20" />
       </div>
     </div>
   );
