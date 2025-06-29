@@ -18,6 +18,7 @@ import logo from "../../assets/Logo.png"
 const Sidebar = ({ isOpen, toggleSidebar }) => {
   const location = useLocation();
   const currentPath = location.pathname;
+  console.log("current path===>",currentPath);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false); // Track the dropdown state
 const user = true;
   // Check if current path matches a menu item
@@ -92,7 +93,7 @@ const user = true;
         <Link to="/order">
           <li
             className={`flex items-center gap-2 mt-5 cursor-pointer transition-all duration-300 ease-in-out ${
-              isActive("/services") ? "bg-[#00c0b5] text-white px-3 py-3 rounded-2xl" : ""
+              isActive("/order") ? "bg-[#00c0b5] text-white px-3 py-3 rounded-2xl" : ""
             }`}
           >
             <LuSquareMenu className="w-5 h-5" />
@@ -128,10 +129,10 @@ const user = true;
 
         {/* Settings Submenu */}
         {isSettingsOpen && (
-          <ul className="text-right py-3 ">
+          <ul className="text-right ml-9 py-3 ">
             <Link to="/setting/aboutUs">
               <li
-                className={`py-[5px] flex items-center gap-2 transition-all duration-300 ease-in-out ${
+                className={`py-[5px] flex items-center gap-2 transition-all duration-300 ease-in-out mb-3 ${
                   isActive("/setting/aboutUs") ? "text-[#00c0b5]" : ""
                 }`}
               >
@@ -142,7 +143,7 @@ const user = true;
 
             <Link to="/setting/privacy">
               <li
-                className={`py-2 flex items-center gap-2 transition-all duration-300 ease-in-out ${
+                className={`py-2 flex items-center gap-2 transition-all duration-300 ease-in-out mb-3 ${
                   isActive("/setting/privacy") ? "text-[#00c0b5]" : ""
                 }`}
               >
@@ -153,7 +154,7 @@ const user = true;
 
             <Link to="/setting/policy">
               <li
-                className={`pb-2 flex items-center gap-2 transition-all duration-300 ease-in-out ${
+                className={`pb-2 flex items-center gap-2 transition-all duration-300 ease-in-out mb-3 ${
                   isActive("/setting/policy") ? "text-[#00c0b5]" : ""
                 }`}
               >
@@ -164,7 +165,7 @@ const user = true;
 
             <Link to="/setting/faq">
               <li
-                className={`pb-2 flex items-center gap-2 transition-all duration-300 ease-in-out ${
+                className={`pb-2 flex items-center gap-2 transition-all duration-300 ease-in-out mb-3 ${
                   isActive("/setting/faq") ? "text-[#00c0b5]" : ""
                 }`}
               >
@@ -174,7 +175,7 @@ const user = true;
             </Link>
             <Link to="/setting/support">
               <li
-                className={`pb-2 flex items-center gap-2 transition-all duration-300 ease-in-out ${
+                className={`pb-2 flex items-center gap-2 transition-all duration-300 ease-in-out  ${
                   isActive("/setting/support") ? "text-[#00c0b5]" : ""
                 }`}
               >
