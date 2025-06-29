@@ -14,7 +14,7 @@ const Overview = () => {
                 <p className="font-title  text-xl text-[#07163D] pt-2">852,650</p>
             </div>
             <div className=" text-black bg-white px-16 rounded-xl flex flex-col justify-center items-center py15">
-                <p className="font-title  text-xl pb-2 text-[#07163D]">Total Vandor</p>
+                <p className="font-title  text-xl pb-2 text-[#07163D]">Total Vendor</p>
                <div >
                <img src={vendor} alt="" />
                </div>
