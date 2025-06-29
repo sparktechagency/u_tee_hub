@@ -16,7 +16,18 @@ const ProfilePage = () => {
   //     message.error("Upload failed");
   //   }
   // };
-
+  // file input change handler
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      // read file as data URL to preview
+      const reader = new FileReader();
+      reader.onload = () => {
+        setProfileImg(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
   return (
     <div>
       <h1 className="text-start text-3xl font-bold my-5 text-[#35BEBD] font-title">
@@ -32,12 +43,23 @@ const ProfilePage = () => {
             </div>
             <div className="absolute top-20 left-[224px]">
               <div className="bg-[#35BEBD] w-12 h-12 rounded-full relative">
+                      {/* label for hidden input */}
+              <label htmlFor="fileInput" className="bg-[#35BEBD] w-12 h-12 rounded-full relative cursor-pointer flex items-center justify-center">
                 {/* <TbPhotoScan className="text-white text-3xl ml-1 top-1 absolute" /> */}
                 <img
                   src={gallery}
                   alt=""
                   className="text-white text-3xl left-2.5 top-2.5 absolute w-7"
                 />
+                </label>
+                       {/* hidden file input */}
+              <input
+                id="fileInput"
+                type="file"
+                accept="image/*"
+                onChange={handleImageChange}
+                className="hidden"
+              />
               </div>
             </div>
           </div>

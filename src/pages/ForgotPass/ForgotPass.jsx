@@ -25,7 +25,7 @@ const ForgotPass = () => {
   return (
     <div className="max-w-7xl mx-auto w-full flex md:flex-row flex-col justify-center items-center gap-8 md:ml-16 lg:ml-96">
       <div className="flex w-1/2 bg-white rounded-lg overflow-hidden font-title">
-        {/* Left Section - Form */}
+        {/* Left Section --- Form */}
         <div className="flex-1 p-10 flex flex-col">
           {/* Logo */}
           <div className="mb-10">
@@ -38,7 +38,7 @@ const ForgotPass = () => {
             />
           </div>
 
-          {/* Form Container */}
+          {/* Form Container --- */}
           <div className="max-w-md">
           <Link to="/sign-in"  className=" mb-2 flex items-center text-black">
             <MdKeyboardArrowLeft className="" size={24}/> Back to login
@@ -82,11 +82,7 @@ const ForgotPass = () => {
                 </Form.Item>
               </div>
 
-              {/* Remember Me and Forgot Password */}
-              <div className="flex justify-between">
-         <p className="text-sm text-black">Didn’t receive a code? <span className="text-[#FF8682]">Resend</span></p>
-                
-              </div>
+  
 
               {/* Verify Button */}
               <Form.Item>

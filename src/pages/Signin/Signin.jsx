@@ -5,8 +5,9 @@ import { FcGoogle } from "react-icons/fc";
 import { IoEyeOutline } from "react-icons/io5";
 
 import logo from "../../assets/Logo.png";
-import login from "../../assets/login.png";
+import loginImg from "../../assets/login.png";
 import { Link, useNavigate } from "react-router-dom";
+import { useLoginMutation } from "../../../redux/features/auth/authApi";
 
 const { Title, Text } = Typography;
 
@@ -14,12 +15,31 @@ const Signin = () => {
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+const [login]=useLoginMutation();
+  const onFinish = async(values) => {
 
-  const onFinish = (values) => {
     console.log("Form submitted:", values); // Display form values in the console
-    setLoading(true);
-    // Add your form submission logic here
-    navigate("/validation");
+     setLoading(true);
+ try{
+    const userInfo = {email:values.email,password:values.password}
+   
+      const res = await login(userInfo).unwrap();
+      setLoading(true)
+      const user = verifyToken(res.data.accessToken);
+      console.log("dispatchUser", user);
+      dispatch(setUser({ user: user, token: res.data.accessToken }));
+      setLoading(false)
+      toast.success(res?.message);
+  // navigate("/validation");
+
+ // eslint-disable-next-line @typescript-eslint/no-explicit-any
+ }catch(err){
+    toast.error(err?.data?.message)
+ }
+ 
+   
+
+  
   };
   return (
     <div className="max-w-7xl mx-auto w-full flex md:flex-row flex-col justify-center items-center gap-8 md:ml-16 lg:ml-96">
@@ -159,11 +179,11 @@ const Signin = () => {
             </Form>
 
             {/* Divider */}
-            <div className="relative flex justify-center text-sm mt-5">
+            {/* <div className="relative flex justify-center text-sm mt-5">
               <Divider>Or login with</Divider>
             </div>
 
-            {/* Social Login */}
+   
             <div className="mt-6 grid grid-cols-2 gap-3">
               <button
                 type="button"
@@ -177,13 +197,13 @@ const Signin = () => {
               >
                 <FaApple className="h-7 w-7 text-black" />
               </button>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
 
       <div className="w-1/2">
-        <img src={login} alt="Login Image" className="w-[70%] mt-20" />
+        <img src={loginImg} alt="Login Image" className="w-[70%] mt-20" />
       </div>
     </div>
   );

@@ -15,7 +15,9 @@ const MainHeader = ({ toggleSidebar }) => {
           </div> */}
           <div className="flex gap-5 items-center">
             <div>
-        <Link to={"/notification"}>    <IoIosNotificationsOutline className="text-[#35BEBD] text-3xl "/></Link>
+        <Link to={"/notification"}> 
+           <IoIosNotificationsOutline className="text-[#35BEBD] text-3xl "/>
+           </Link>
             </div>
             <div
               onClick={() => navigate("/profile")}
