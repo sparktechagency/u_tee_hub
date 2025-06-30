@@ -36,11 +36,11 @@ const [login]=useLoginMutation();
       dispatch(setUser({ user: user, token: res.data.accessToken }));
       setLoading(false)
       toast.success(res?.message);
-  navigate("/validation");
+  navigate("/");
 
  // eslint-disable-next-line @typescript-eslint/no-explicit-any ---
  }catch(err){
-    toast.error(err?.data?.message)
+    toast.error(err?.data?.message) 
  }
   };
   return (
