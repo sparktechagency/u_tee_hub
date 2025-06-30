@@ -1,18 +1,23 @@
 import { useState } from "react";
 import { Form, Input, Checkbox, Divider, Typography } from "antd";
 import { FaApple, FaGoogle, FaRegEyeSlash } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
-import { IoEyeOutline } from "react-icons/io5";
+import { IoEyeOutline } from "react-icons/io5"; 
 
 import logo from "../../assets/Logo.png";
 import loginImg from "../../assets/login.png";
 import { Link, useNavigate } from "react-router-dom";
-import { useLoginMutation } from "../../../redux/features/auth/authApi";
+
+import { toast } from "react-toastify";
+import { useLoginMutation } from "../../redux/features/auth/authApi";
+import { verifyToken } from "../../utils/verifyToken";
+import { setUser } from "../../redux/features/auth/authSlice";
+import { useDispatch } from "react-redux";
 
 const { Title, Text } = Typography;
 
 const Signin = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch()
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
 const [login]=useLoginMutation();
@@ -24,22 +29,19 @@ const [login]=useLoginMutation();
     const userInfo = {email:values.email,password:values.password}
    
       const res = await login(userInfo).unwrap();
+      console.log("res===>",res);
       setLoading(true)
       const user = verifyToken(res.data.accessToken);
       console.log("dispatchUser", user);
       dispatch(setUser({ user: user, token: res.data.accessToken }));
       setLoading(false)
       toast.success(res?.message);
-  // navigate("/validation");
+  navigate("/");
 
- // eslint-disable-next-line @typescript-eslint/no-explicit-any
+ // eslint-disable-next-line @typescript-eslint/no-explicit-any ---
  }catch(err){
-    toast.error(err?.data?.message)
+    toast.error(err?.data?.message) 
  }
- 
-   
-
-  
   };
   return (
     <div className="max-w-7xl mx-auto w-full flex md:flex-row flex-col justify-center items-center gap-8 md:ml-16 lg:ml-96">

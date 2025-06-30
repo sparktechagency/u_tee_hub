@@ -5,8 +5,9 @@ import { RouterProvider } from "react-router-dom";
 import router from "./router/router";
 import { ToastContainer } from "react-toastify";
 import { Provider } from "react-redux";
-import { persistor, store } from "../redux/store";
+
 import { PersistGate } from "redux-persist/integration/react";
+import { persistor, store } from "./redux/store";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>

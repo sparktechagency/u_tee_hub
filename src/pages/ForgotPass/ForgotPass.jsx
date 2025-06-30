@@ -1,26 +1,42 @@
 import { useState } from "react";
 import { Form, Input, Checkbox, Divider, Typography } from "antd";
-import { FaApple, FaGoogle, FaRegEyeSlash } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
-import { IoEyeOutline } from "react-icons/io5";
+
+i
 
 import logo from "../../assets/Logo.png";
 import forgotPass from "../../assets/forgotPass.png";
 import { Link, useNavigate } from "react-router-dom";
 import { MdKeyboardArrowLeft } from "react-icons/md";
+import { useSendOtpMutation } from "../../redux/features/auth/authApi";
+import { toast } from "react-toastify";
 
 const { Title, Text } = Typography;
 
 const ForgotPass = () => {
   const navigate = useNavigate();
-  const [showCode, setShowCode] = useState(false);
-  const [loading, setLoading] = useState(false);
 
-  const onFinish = (values) => {
+  const [loading, setLoading] = useState(false);
+const [sendOtp]=useSendOtpMutation();
+  const onFinish = async(values) => {
     console.log("Form submitted:", values); // Display form values in the console
     setLoading(true);
-    // Add your form submission logic here
-    navigate("/setPass");
+ try{
+ 
+   
+      const res = await sendOtp(values).unwrap();
+      console.log("res===>",res);
+      setLoading(true)
+
+
+      setLoading(false)
+      toast.success(res?.message);
+   navigate("/setPass");
+
+ // eslint-disable-next-line @typescript-eslint/no-explicit-any ---
+ }catch(err){
+    toast.error(err?.data?.message) 
+ }
+ 
   };
   return (
     <div className="max-w-7xl mx-auto w-full flex md:flex-row flex-col justify-center items-center gap-8 md:ml-16 lg:ml-96">
@@ -117,26 +133,7 @@ const ForgotPass = () => {
               </Form.Item>
             </Form>
 
-            {/* Divider */}
-            <div className="relative flex justify-center text-sm mt-5">
-              <Divider>Or login with</Divider>
-            </div>
-
-            {/* Social Login */}
-            <div className="mt-6 grid grid-cols-2 gap-3">
-              <button
-                type="button"
-                className="w-full inline-flex justify-center py-3 px-4 border border-[#35BEBD] rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
-              >
-                <FcGoogle className="h-7 w-7" />
-              </button>
-              <button
-                type="button"
-                className="w-full inline-flex justify-center py-3 px-4 border border-[#35BEBD] rounded-md shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
-              >
-                <FaApple className="h-7 w-7 text-black" />
-              </button>
-            </div>
+   
           </div>
         </div>
       </div>

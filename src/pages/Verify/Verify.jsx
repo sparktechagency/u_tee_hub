@@ -8,6 +8,10 @@ import logo from "../../assets/Logo.png";
 import login from "../../assets/login.png";
 import { Link, useNavigate } from "react-router-dom";
 import { MdKeyboardArrowLeft } from "react-icons/md";
+import { useAppSelector } from "../../redux/hooks";
+import { selectCurrentUser } from "../../redux/features/auth/authSlice";
+import { toast } from "react-toastify";
+import { useVerifyOtpMutation } from "../../redux/features/auth/authApi";
 
 const { Title, Text } = Typography;
 
@@ -15,12 +19,26 @@ const Verify = () => {
   const navigate = useNavigate();
   const [showCode, setShowCode] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  const onFinish = (values) => {
+const user = useAppSelector(selectCurrentUser)
+console.log("user===>",user);
+const [verifyOtp]=useVerifyOtpMutation();
+  const onFinish = async(values) => {
+        const info = {email:user?.email,otp:values.code}
     console.log("Form submitted:", values); // Display form values in the console
     setLoading(true);
-    // Add your form submission logic here
-    navigate("/");
+ try{
+      const res = await verifyOtp(info).unwrap();
+      console.log("res===>",res);
+      setLoading(true)
+      setLoading(false)
+      toast.success(res?.message);
+   navigate("/setPass");
+
+ // eslint-disable-next-line @typescript-eslint/no-explicit-any ---
+ }catch(err){
+    toast.error(err?.data?.message) 
+ }
+ 
   };
   return (
     <div className="max-w-7xl mx-auto w-full flex md:flex-row flex-col justify-center items-center gap-8 md:ml-16 lg:ml-96">
@@ -40,9 +58,7 @@ const Verify = () => {
 
           {/* Form Container */}
           <div className="max-w-md">
-            <Link to="/sign-in"  className=" mb-2 flex items-center text-black">
-            <MdKeyboardArrowLeft className="" size={24}/> Back to login
-            </Link>
+   
             <Title level={2} className="text-gray-800 mb-2">
               Verify Code
             </Title>

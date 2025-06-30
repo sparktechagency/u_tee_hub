@@ -8,6 +8,9 @@ import logo from "../../assets/Logo.png";
 import confirmPass from "../../assets/forgotPass.png";
 import { Link, useNavigate } from "react-router-dom";
 import { MdKeyboardArrowLeft } from "react-icons/md";
+import { useAppSelector } from "../../redux/hooks";
+import { selectCurrentUser } from "../../redux/features/auth/authSlice";
+import { useResetPassMutation } from "../../redux/features/auth/authApi";
 
 const { Title, Text } = Typography;
 
@@ -15,13 +18,25 @@ const SetPass = () => {
   const navigate = useNavigate();
   const [showPass, setShowPass] = useState(false);
   const [loading, setLoading] = useState(false);
-
-  const onFinish = (values) => {
-    console.log("Form submitted:", values); 
+const user = useAppSelector(selectCurrentUser)
+const [resetPass]=useResetPassMutation()
+  const onFinish = async(values) => {
+        const info = {email:user?.email,newPassword:values.newPass}
+    console.log("Form submitted:", values); // Display form values in the console
     setLoading(true);
-    // Add your form submission logic here
-    navigate("/validation");
-  };
+ try{
+      const res = await resetPass(info).unwrap();
+      console.log("res===>",res);
+      setLoading(true)
+      setLoading(false)
+      toast.success(res?.message);
+   navigate("/setPass");
+
+ // eslint-disable-next-line @typescript-eslint/no-explicit-any ---
+ }catch(err){
+    toast.error(err?.data?.message) 
+ }
+}
   return (
     <div className="max-w-7xl mx-auto w-full flex md:flex-row flex-col justify-center items-center gap-8 md:ml-16 lg:ml-96">
       <div className="flex w-1/2 bg-white rounded-lg overflow-hidden font-title">
@@ -40,9 +55,7 @@ const SetPass = () => {
 
           {/* Form Container */}
           <div className="max-w-md">
-            <Link to="/sign-in" className=" mb-2 flex items-center text-black">
-              <MdKeyboardArrowLeft className="" size={24} /> Back to login
-            </Link>
+     
             <Title level={2} className="text-gray-800 mb-2">
               Set a password
             </Title>
@@ -58,16 +71,16 @@ const SetPass = () => {
               initialValues={{ remember: true }}
             >
               {/*Create Password Field */}
-              <div className="relative pt-2">
+              {/* <div className="relative pt-2">
                 <Form.Item
-                  name="createPass" // This binds the input to form state
+                  name="oldPass" // This binds the input to form state
                   rules={[
                     { required: true, message: "Please input your code!" },
                   ]}
                 >
                   <div className="">
                     <label className="absolute z-30 -top-3 left-3 px-1 text-lg bg-white">
-                      Create Password
+                      Old Password
                     </label>
                     <Input
                       type={showPass ? "text" : "password"}
@@ -87,19 +100,19 @@ const SetPass = () => {
                     </button>
                   </div>
                 </Form.Item>
-              </div>
+              </div> */}
 
               {/*re enter Password Field */}
               <div className="relative pt-2">
                 <Form.Item
-                  name="confirmPass" // This binds the input to form state
+                  name="newPass" // This binds the input to form state
                   rules={[
                     { required: true, message: "Please input your code!" },
                   ]}
                 >
                   <div className="">
                     <label className="absolute z-30 -top-3 left-3 px-1 text-lg bg-white">
-                      Create Password
+                      New Password
                     </label>
                     <Input
                       type={showPass ? "text" : "password"}
