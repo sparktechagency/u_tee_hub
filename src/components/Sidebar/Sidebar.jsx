@@ -15,12 +15,17 @@ import { GoQuestion } from "react-icons/go";
 import { LuSquareMenu } from "react-icons/lu";
 import { useState } from "react"; // Import useState
 import logo from "../../assets/Logo.png"
+import { useAppDispatch, useAppSelector } from "../../redux/hooks";
+import { logout, selectCurrentUser } from "../../redux/features/auth/authSlice";
+import { useDispatch } from "react-redux";
 const Sidebar = ({ isOpen, toggleSidebar }) => {
   const location = useLocation();
   const currentPath = location.pathname;
   console.log("current path===>",currentPath);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false); // Track the dropdown state
-const user = true;
+const user = useAppSelector(selectCurrentUser);
+console.log("user",user);
+const dispatch = useDispatch()
   // Check if current path matches a menu item
   const isActive = (path) => currentPath === path;
 
@@ -31,7 +36,9 @@ const user = true;
   const toggleSettingsDropdown = () => {
     setIsSettingsOpen(!isSettingsOpen);
   };
-
+const handleLogout=()=>{
+dispatch(logout())
+}
   return (
     <div
       className={`fixed lg:static px-3 bg-white text-[#0D0D0D] w-[70%] sm:w-[70%] md:w-[15%] lg:w-[15%]  overflow-y-auto py-5 md:py-0 z-50 transition-transform ${
@@ -191,7 +198,17 @@ const user = true;
       <div className="absolute bottom-5  w-[90%] px-5">
   {
     user? (
-      <Link to="/sign-in">
+            <button onClick={()=>handleLogout()}
+        className="flex items-center gap-2 w-full px-0 py-3 border-2 border-[#00c0b5] text-[#00c0b5] hover:bg-[#00c0b5] hover:text-white rounded-xl duration-200 justify-center"
+      >
+         <IoLogInOutline className="w-7 h-7 font-bold text-2xl" />
+        <span className="text-lg text-title font-bold">Logout</span>
+      </button>
+ 
+
+    ):(
+        <Link to="/sign-in">
+
     <button
       className="flex items-center gap-2 w-full px-0 py-3 border-2 border-[#00c0b5] text-[#00c0b5] hover:bg-[#00c0b5] hover:text-white rounded-xl duration-200 justify-center"
     >
@@ -199,16 +216,6 @@ const user = true;
       <span className="text-lg text-title font-bold">Login</span>
     </button>
   </Link>
-
-    ):(
-      <Link to="">
-      <button
-        className="flex items-center gap-2 w-full px-0 py-3 border-2 border-[#00c0b5] text-[#00c0b5] hover:bg-[#00c0b5] hover:text-white rounded-xl duration-200 justify-center"
-      >
-         <IoLogInOutline className="w-7 h-7 font-bold text-2xl" />
-        <span className="text-lg text-title font-bold">Logout</span>
-      </button>
-    </Link>
     )
   }
 </div>

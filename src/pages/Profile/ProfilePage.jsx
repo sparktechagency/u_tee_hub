@@ -3,31 +3,41 @@ import { TbPhotoScan } from "react-icons/tb";
 import { Link } from "react-router-dom";
 import gallery from "../../assets/gallery.png";
 import profile from "../../assets/profile.png";
-const ProfilePage = () => {
-  const onFinish = (values) => {
-    console.log("Form values:", values);
-    message.success("Profile updated successfully!");
-  };
+import { useState } from "react";
+import { useUpdateProfileMutation } from "../../redux/features/profile/profileApi";
+import { useAppSelector } from "../../redux/hooks";
+import { selectCurrentUser } from "../../redux/features/auth/authSlice";
 
-  // const handleUpload = (info) => {
-  //   if (info.file.status === "done") {
-  //     message.success("Upload successful");
-  //   } else if (info.file.status === "error") {
-  //     message.error("Upload failed");
-  //   }
-  // };
-  // file input change handler
+const ProfilePage = () => {
+  const [previewImg, setPreviewImg] = useState(null); // For showing preview
+  const [imageFile, setImageFile] = useState(null);   // For uploading
+const [updateProfile]  = useUpdateProfileMutation();
+const user = useAppSelector(selectCurrentUser)
+console.log("user",user);
+  const onFinish = (values) => {
+    const formData = new FormData();
+    formData.append("name", values.name);
+
+    if (imageFile) {
+      formData.append("image", imageFile); // Append image file
+    }
+console.log("imageFile:", imageFile);
+
+
+  };  
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      // read file as data URL to preview
+      setImageFile(file); // Save file for upload
       const reader = new FileReader();
       reader.onload = () => {
-        setProfileImg(reader.result);
+        setPreviewImg(reader.result); // Show preview
       };
       reader.readAsDataURL(file);
     }
   };
+
   return (
     <div>
       <h1 className="text-start text-3xl font-bold my-5 text-[#35BEBD] font-title">
@@ -39,27 +49,31 @@ const ProfilePage = () => {
         <div className="">
           <div className="relative text-center items-center justify-center flex">
             <div>
-              <img src={profile} alt="Profile" className="w-36" />
+              <img
+                src={previewImg || profile}
+                alt="Profile"
+                className="w-36 h-36 object-cover rounded-full"
+              />
             </div>
             <div className="absolute top-20 left-[224px]">
               <div className="bg-[#35BEBD] w-12 h-12 rounded-full relative">
-                      {/* label for hidden input */}
-              <label htmlFor="fileInput" className="bg-[#35BEBD] w-12 h-12 rounded-full relative cursor-pointer flex items-center justify-center">
-                {/* <TbPhotoScan className="text-white text-3xl ml-1 top-1 absolute" /> */}
-                <img
-                  src={gallery}
-                  alt=""
-                  className="text-white text-3xl left-2.5 top-2.5 absolute w-7"
-                />
+                <label
+                  htmlFor="fileInput"
+                  className="bg-[#35BEBD] w-12 h-12 rounded-full relative cursor-pointer flex items-center justify-center"
+                >
+                  <img
+                    src={gallery}
+                    alt=""
+                    className="text-white text-3xl left-2.5 top-2.5 absolute w-7"
+                  />
                 </label>
-                       {/* hidden file input */}
-              <input
-                id="fileInput"
-                type="file"
-                accept="image/*"
-                onChange={handleImageChange}
-                className="hidden"
-              />
+                <input
+                  id="fileInput"
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className="hidden"
+                />
               </div>
             </div>
           </div>
@@ -67,9 +81,7 @@ const ProfilePage = () => {
             Edit Photo
           </p>
           <Link to={"/changePass"}>
-            {" "}
             <p className="text-[#313131] text-center font-title my-3 underline text-lg">
-              {" "}
               Change Password
             </p>
           </Link>
@@ -83,39 +95,17 @@ const ProfilePage = () => {
           layout="vertical"
         >
           {/* Name Input */}
-          <div className=" mt-3">
+          <div className="mt-3">
             <Form.Item
               name="name"
-              rules={[
-                { required: true, message: "Please input your Name!" },
-                { type: "name", message: "Please enter a  Name!" },
-              ]}
+              rules={[{ required: true, message: "Please input your Name!" }]}
             >
               <div>
-                <label className={` px-1 text-lg  transition-all`}>Name</label>
+                <label className={`px-1 text-lg transition-all`}>Name</label>
                 <Input
                   placeholder="Name..."
                   type="text"
                   className="w-full px-3 py-3 rounded-xl border border-[#35BEBD]  focus:outline-none focus:ring-2 focus:ring-teal-500"
-                />
-              </div>
-            </Form.Item>
-          </div>
-          {/* Email Input */}
-          <div className="mt-3">
-            <Form.Item
-              name="email"
-              rules={[
-                { required: true, message: "Please input your email!" },
-                { type: "email", message: "Please enter a valid email!" },
-              ]}
-            >
-              <div>
-                <label className={` px-1 text-lg  transition-all`}>Email</label>
-                <Input
-                  placeholder="john.doe@gmail.com"
-                  type="email"
-                  className="w-full px-3 py-5 border border-[#35BEBD] rounded-md focus:outline-none focus:ring-2 focus:ring-teal-500"
                 />
               </div>
             </Form.Item>

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Form, Input, Checkbox, Divider, Typography } from "antd";
 
-i
+
 
 import logo from "../../assets/Logo.png";
 import forgotPass from "../../assets/forgotPass.png";
@@ -30,7 +30,7 @@ const [sendOtp]=useSendOtpMutation();
 
       setLoading(false)
       toast.success(res?.message);
-   navigate("/setPass");
+   navigate("/validation");
 
  // eslint-disable-next-line @typescript-eslint/no-explicit-any ---
  }catch(err){

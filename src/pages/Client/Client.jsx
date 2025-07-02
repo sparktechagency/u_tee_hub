@@ -2,10 +2,12 @@ import { Input } from "antd";
 import { useState } from "react";
 import ClientCard from "../../components/Client/ClientCard";
 import { IoSearch } from "react-icons/io5";
+import { useAllUserQuery } from "../../redux/features/user/userApi";
 
 const Client = () => {
   const [searchTerm, setSearchTerm] = useState("");  // State to store the search term
-
+const {data:alluser}=useAllUserQuery(searchTerm)
+console.log("all user",alluser?.data);
   const clients = [
     { id: 1, name: "John Doe", email: "john.doe@example.com", country: "USA" },
     { id: 2, name: "Jane Smith", email: "jane.smith@example.com", country: "Canada" },
@@ -55,15 +57,15 @@ const Client = () => {
           </div>
         </div>
       </div>
-      <div className="grid grid-cols-4 gap-5 my-5">
-        {filteredClients.length > 0 ? (
-          filteredClients.map((client, idx) => (
-            <ClientCard key={idx} client={client} />
-          ))
-        ) : (
-          <p className="text-black">No clients found.</p> // Message when no clients match the search
-        )}
-      </div>
+ <div className="grid grid-cols-4 gap-5 my-5">
+  {alluser?.data?.length > 0 ? (
+  alluser?.data?.filter(user => user?.profile?.role === "client")
+  ?.map((client, idx) => <ClientCard key={idx} client={client} />)
+  ) : (
+    <p className="text-black">No clients found.</p>
+  )}
+</div>
+
     </div>
   );
 };
