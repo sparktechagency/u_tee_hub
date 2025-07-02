@@ -2,6 +2,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import clientImg from "../../assets/client-image.png";
 import Swal from "sweetalert2";
+import { useSingleUserQuery } from "../../redux/features/user/userApi";
 // Assuming this is your client data
 const clients = [
   { id: 1, name: "John Doe", email: "john.doe@example.com", country: "USA" },
@@ -63,13 +64,12 @@ const clients = [
 
 const ClientDetails = () => {
   const { id } = useParams();
-
-  const client = clients.find((client) => client.id === parseInt(id));
-
+console.log("id",id);
+  // const client = clients.find((client) => client.id === parseInt(id));
+const {data:singleUser}=useSingleUserQuery(id)
+console.log("single user",singleUser?.data);
   // Check if the client is found
-  if (!client) {
-    return <p>Client not found</p>;
-  }
+ 
 const handleAccept=()=>{
 
     Swal.fire({
@@ -121,17 +121,17 @@ const handleReject=()=>{
         <div className="space-y-4">
           <div className="grid grid-cols-2 gap-2">
             <p className="text-gray-500">Client name</p>
-            <p className="text-gray-700">Guitar Ross biyate</p>
+            <p className="text-gray-700">{singleUser?.data?.profile?.id?.name}</p>
           </div>
 
           <div className="grid grid-cols-2 gap-2">
             <p className="text-gray-500">E-mail</p>
-            <p className="text-gray-700">gal.54@gmail.com</p>
+            <p className="text-gray-700">{singleUser?.data?.email}</p>
           </div>
 
           <div className="grid grid-cols-2 gap-2">
             <p className="text-gray-500">Phone Number</p>
-            <p className="text-gray-700">345453211</p>
+            <p className="text-gray-700">{singleUser?.data?.phone}</p>
           </div>
 
           <div className="grid grid-cols-2 gap-2">
@@ -148,7 +148,7 @@ const handleReject=()=>{
    <div className="border-2 border-dashed p-4 rounded-2xl">
    <div className=" rounded-full bg-yellow-400">
             <img
-              src={clientImg}
+              src={singleUser?.data?.profile?.id?.image}
               alt="Client profile"
             
               className="object-cover w-[125px]"
@@ -161,7 +161,7 @@ const handleReject=()=>{
 
         <div className="grid grid-cols-2 gap-x-8 gap-y-2 w-full max-w-xs mt-10">
         <p className="text-gray-700">Guitar Ross biyate</p>
-        <p className="text-gray-500 text-sm">Client</p>
+        <p className="text-gray-500 text-sm">{singleUser?.data?.profile?.role}</p>
           <p className="text-gray-500">Age</p>
           <p className="text-gray-700">30</p>
 
