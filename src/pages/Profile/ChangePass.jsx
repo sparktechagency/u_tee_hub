@@ -1,18 +1,39 @@
-import { Button, Input, Form, message } from "antd";
-import { TbPhotoScan } from "react-icons/tb";
-import { Link } from "react-router-dom";
+import { Input, Form, message } from "antd";
+
+import { Link, useNavigate } from "react-router-dom";
 import gallery from "../../assets/gallery.png";
 import profile from "../../assets/profile.png";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { IoEyeOutline } from "react-icons/io5";
 import { useState } from "react";
+import { useChangePasswordMutation } from "../../redux/features/auth/authApi";
+import { useAppSelector } from "../../redux/hooks";
+import { selectCurrentUser } from "../../redux/features/auth/authSlice";
 
 const ChangePass = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const onFinish = (values) => {
-    console.log("Form values:", values);
-    message.success("Profile updated successfully!");
+  const [changePass]=useChangePasswordMutation();
+const user = useAppSelector(selectCurrentUser)
+const navigate = useNavigate();
+const onFinish = async (values) => {
+
+  const payload = {
+    email: user?.email,
+    oldPassword: values.oldPassword,
+    newPassword: values.newPassword,
   };
+
+  try {
+    const res = await changePass(payload).unwrap();
+    // console.log("res===>", res);
+    message.success(res?.message || "Password changed successfully!");
+    navigate('/profile')
+  } catch (err) {
+    // console.error("Error:", err);
+    message.error(err?.data?.error|| "Failed to change password.");
+  }
+};
+
   return (
     <div>
       <h1 className="text-start text-3xl font-bold my-5 text-[#35BEBD] font-title">
@@ -59,7 +80,7 @@ const ChangePass = () => {
           {/* old pass Input */}
           <div className="relative pt-2">
             <Form.Item
-              name="old-password" // This binds the input to form state
+              name="oldPassword" // This binds the input to form state
               rules={[
                 { required: true, message: "Please input your password!" },
               ]}
@@ -88,7 +109,7 @@ const ChangePass = () => {
           {/* new pass Input */}
           <div className="relative pt-2">
             <Form.Item
-              name="new-password" // This binds the input to form state
+              name="newPassword" // This binds the input to form state
               rules={[
                 { required: true, message: "Please input your password!" },
               ]}
@@ -114,35 +135,8 @@ const ChangePass = () => {
               </div>
             </Form.Item>
           </div>
-          {/* confirm password */}
-          <div className="relative pt-2">
-            <Form.Item
-              name="confirm-password" // This binds the input to form state
-              rules={[
-                { required: true, message: "Please input your password!" },
-              ]}
-            >
-              <div className="">
-                <label className=" px-1 text-lg">Confirm Password</label>
-                <Input
-                  type={showPassword ? "text" : "password"}
-                  placeholder="••••••••••••••••••"
-                  className="w-full px-3 py-3 border border-[#35BEBD] rounded-xl focus:outline-none focus:ring-2 focus:ring-teal-500"
-                />
-                <button
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute inset-y-0 right-0 top-8 pr-3 flex items-center"
-                >
-                  {showPassword ? (
-                    <FaRegEyeSlash className="h-5 w-5 text-gray-400" />
-                  ) : (
-                    <IoEyeOutline className="h-5 w-5 text-gray-400" />
-                  )}
-                </button>
-              </div>
-            </Form.Item>
-          </div>
+
+  
           {/* Save Button */}
           <Form.Item>
             <button
