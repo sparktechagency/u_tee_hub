@@ -60,7 +60,7 @@ import ChangePass from "../pages/Profile/ChangePass";
             element: <Vendor/>,
           },
           {
-            path: "/ownerDetails",
+            path: "/ownerDetails/:id",
             element: <OwnerDetails/>,
           },
           {
