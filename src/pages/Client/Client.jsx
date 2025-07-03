@@ -5,7 +5,7 @@ import { IoSearch } from "react-icons/io5";
 import { useAllUserQuery } from "../../redux/features/user/userApi";
 
 const Client = () => {
-  const [searchTerm, setSearchTerm] = useState("");  // State to store the search term
+  const [searchTerm, setSearchTerm] = useState(""); 
 const {data:alluser}=useAllUserQuery(searchTerm)
 console.log("all user",alluser?.data);
   const clients = [

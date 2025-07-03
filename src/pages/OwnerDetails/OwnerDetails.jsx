@@ -3,6 +3,8 @@ import image from "../../assets/storeLogo.png";
 import { IoStar } from "react-icons/io5";
 import DetailsGraph from "../../components/Vendor/DetailsGraph";
 import DetailsCard from "../../components/Vendor/DetailsCard";
+import { useParams } from "react-router-dom";
+import { useSingleUserQuery } from "../../redux/features/user/userApi";
 
 const OwnerDetails = ({
   name = "Miudiek tee Store",
@@ -15,6 +17,10 @@ const OwnerDetails = ({
   rating = 4.8,
   status = "Active",
 }) => {
+  const {id}=useParams()
+  const {data:singleUser}=useSingleUserQuery(id)
+  console.log("single user",singleUser?.data);
+  console.log("vendor id-->",id);
   return (
     <div className="w-full  ">
       <div className="flex flex-col md:flex-row bg-white rounded-2xl shadow-xl overflow-hidden">
