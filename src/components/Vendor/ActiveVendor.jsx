@@ -14,7 +14,7 @@ const ActiveVendor = ({vendor}) => {
         <div className="flex items-start space-x-3 mb-2">
           <div className="h-12 w-12 rounded-xl bg-[#FFDAE3] flex items-center justify-center overflow-hidden">
             <img
-              src={vendor?.profile?.id?.documents[0]}
+              src={vendor?.profile?.id?.image}
               alt="Vendor Avatar"
               className="w-[70%] object-cover"
             />
