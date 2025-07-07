@@ -172,14 +172,14 @@ const handleReject=()=>{
     </div>
 
     {/* Action buttons */}
-    <div className="flex gap-4 mt-12 lg:mt-24">
+    {/* <div className="flex gap-4 mt-12 lg:mt-24">
       <button onClick={()=>handleAccept()} className="px-6 py-3 bg-teal-400 text-white rounded-xl hover:bg-teal-500 transition-colors w-36 ">
         Accept
       </button>
       <button onClick={()=>handleReject()} className="px-6 py-3 bg-red-500 text-white rounded-xl hover:bg-red-600 transition-colors w-36 ">
         Rejected
       </button>
-    </div>
+    </div> */}
 
 
   </div>

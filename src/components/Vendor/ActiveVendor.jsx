@@ -2,11 +2,50 @@ import { BsArrowRight } from "react-icons/bs";
 import vendor from "../../assets/Ellipse 204.png";
 
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
 
 
 const ActiveVendor = ({vendor}) => {
  console.log("vendor====>",vendor);
+const handleAccept=()=>{
 
+    Swal.fire({
+        title: "Are you sure?",
+        text: `${vendor?.profile?.id?.name} has been successfully added.`,
+       
+       
+        confirmButtonColor: "#35BEBD",
+        
+        confirmButtonText: "Request Accepted"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: "Accepted",
+            text: "Request Accepted",
+            icon: "success"
+          });
+        }
+      });
+}
+const handleReject=()=>{
+    Swal.fire({
+        title: "Are you sure?",
+        text:`${vendor?.profile?.id?.name} has been successfully blocked.`,
+       
+       
+        confirmButtonColor: "#DD1A1D",
+     
+        confirmButtonText: "Blocked"
+      }).then((result) => {
+        if (result.isConfirmed) {
+          Swal.fire({
+            title: "Blocked!",
+            text:`${vendor?.profile?.id?.name} has been successfully blocked.`,
+            icon: "Error"
+          });
+        }
+      });
+}
   return (
     <div className="max-w-sm rounded-xl border border-gray-200 bg-white shadow-sm font-title">
       <div className="p-5">
@@ -41,22 +80,22 @@ const ActiveVendor = ({vendor}) => {
 
       {/* Action Buttons */}
       <div className="flex justify-between p-3 gap-2">
-        <Link to={"/accept"} className="">
-          <button
+        {/* <Link to={"/accept"} className=""> */}
+          <button onClick={()=>handleAccept()}
             className="px-4 py-1.5 border border-teal-500 text-teal-500 text-sm font-medium rounded-md hover:bg-teal-50"
            
           >
             Accept
           </button>
-        </Link>
-        <Link to={"/rejected"} className="">
-          <button
+        {/* </Link> */}
+        {/* <Link to={"/rejected"} className=""> */}
+          <button onClick={()=>handleReject()}
             className="px-4 py-1.5 border border-red-400 text-red-400 text-sm font-medium rounded-md hover:bg-red-50"
            
           >
-            Reject
+          Blocked
           </button>
-        </Link>
+        {/* </Link> */}
 
         <Link to={`/ownerDetails/${vendor?._id}`}>
           <button className="px-4 py-1.5 border border-teal-500 text-teal-500 text-sm font-medium rounded-md hover:bg-teal-50 flex items-center gap-1">
