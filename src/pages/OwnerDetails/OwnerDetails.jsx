@@ -82,10 +82,10 @@ const OwnerDetails = ({
         </div>
       </div>
 
-      <div className="mt-5">
+      {/* <div className="mt-5">
         <DetailsGraph />
         <DetailsCard />
-      </div>
+      </div> */}
     </div>
   );
 };

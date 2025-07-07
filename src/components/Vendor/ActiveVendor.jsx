@@ -2,10 +2,70 @@ import { BsArrowRight } from "react-icons/bs";
 import vendor from "../../assets/Ellipse 204.png";
 
 import { Link } from "react-router-dom";
+import Swal from "sweetalert2";
+import { useUpdateProfileMutation } from "../../redux/features/profile/profileApi";
+import { CgLayoutGrid } from "react-icons/cg";
 
 
 const ActiveVendor = ({vendor}) => {
- console.log("vendor====>",vendor);
+ console.log("vendor====>",vendor?._id);
+ const [updateProfile]=useUpdateProfileMutation();
+const handleAccept = async () => {
+  const formData = new FormData();
+  formData.append("status", "active");
+
+  try {
+    const res = await updateProfile({ info: formData, id: vendor?._id }).unwrap();
+
+    console.log("response------>", res);
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: `${vendor?.profile?.id?.name} has been successfully added.`,
+      confirmButtonColor: "#35BEBD",
+      confirmButtonText: "Request Accepted",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Accepted",
+          text: "Request Accepted",
+          icon: "success",
+        });
+      }
+    });
+  } catch (error) {
+    console.error("Update failed", error);
+    Swal.fire("Error", "Status update failed", "error");
+  }
+};
+const handleReject = async () => {
+  const formData = new FormData();
+  formData.append("status", "blocked");
+
+  try {
+    const res = await updateProfile({ info: formData, id: vendor?._id }).unwrap();
+
+    console.log("response------>", res);
+
+    Swal.fire({
+      title: "Are you sure?",
+      text: `${vendor?.profile?.id?.name} has been successfully blocked.`,
+      confirmButtonColor: "#DD1A1D",
+      confirmButtonText: "Blocked",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          title: "Blocked!",
+          text: `${vendor?.profile?.id?.name} has been successfully blocked.`,
+          icon: "error", // lowercase 'error' is the correct icon
+        });
+      }
+    });
+  } catch (error) {
+    console.error("Update failed", error);
+    Swal.fire("Error", "Status update failed", "error");
+  }
+};
 
   return (
     <div className="max-w-sm rounded-xl border border-gray-200 bg-white shadow-sm font-title">
@@ -41,22 +101,22 @@ const ActiveVendor = ({vendor}) => {
 
       {/* Action Buttons */}
       <div className="flex justify-between p-3 gap-2">
-        <Link to={"/accept"} className="">
-          <button
+        {/* <Link to={"/accept"} className=""> */}
+          <button onClick={()=>handleAccept()}
             className="px-4 py-1.5 border border-teal-500 text-teal-500 text-sm font-medium rounded-md hover:bg-teal-50"
            
           >
             Accept
           </button>
-        </Link>
-        <Link to={"/rejected"} className="">
-          <button
+        {/* </Link> */}
+        {/* <Link to={"/rejected"} className=""> */}
+          <button onClick={()=>handleReject()}
             className="px-4 py-1.5 border border-red-400 text-red-400 text-sm font-medium rounded-md hover:bg-red-50"
            
           >
-            Reject
+          Blocked
           </button>
-        </Link>
+        {/* </Link> */}
 
         <Link to={`/ownerDetails/${vendor?._id}`}>
           <button className="px-4 py-1.5 border border-teal-500 text-teal-500 text-sm font-medium rounded-md hover:bg-teal-50 flex items-center gap-1">
