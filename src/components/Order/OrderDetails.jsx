@@ -1,5 +1,4 @@
 import { useParams } from "react-router-dom";
-import Tshirt from "../../assets/Tshirt.png"
 import { useSingleOrderQuery } from "../../redux/features/order/orderApi";
 import { currencyFormatter } from "../../utils/currencyFormatter";
 

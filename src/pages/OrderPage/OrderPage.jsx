@@ -6,7 +6,11 @@ import { useGetAllOrdersQuery } from "../../redux/features/order/orderApi";
 import { CgLayoutGrid } from "react-icons/cg";
 
 const OrderPage = () => {
-  const {data:getAllOrder}=useGetAllOrdersQuery(undefined)
+   const [searchText, setSearchText] = useState("");
+   console.log("SearchText---->",searchText);
+const { data: getAllOrder } = useGetAllOrdersQuery(
+  searchText ? { search: searchText } : undefined
+);
 console.log('all orer --------->',getAllOrder?.data?.data)
   const [activeTab, setActiveTab] = useState("allOrder");
   // const order= [
@@ -237,6 +241,8 @@ console.log('all orer --------->',getAllOrder?.data?.data)
       <div className="relative w-full sm:w-[300px]">
         <Input
           type="text"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
           placeholder="Search anything here..."
           className="border border-[#e5eaf2] py-3 outline-none w-full rounded-full px-3"
         />

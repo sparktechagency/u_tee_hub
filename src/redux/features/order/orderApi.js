@@ -5,6 +5,7 @@ const orderApi = baseApi.injectEndpoints({
 
   getAllOrders: builder.query({
       query: (args) => {
+        console.log('Arguments from orderApi----->',args);
         const params = new URLSearchParams();
     
         if (args && typeof args === "object") { 
