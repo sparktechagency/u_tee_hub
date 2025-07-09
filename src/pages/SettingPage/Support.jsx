@@ -1,80 +1,81 @@
 import { Input, Table, Tag } from "antd";
 import { useState } from "react";
 import { IoSearch } from "react-icons/io5";
+import { useGetAllSupportQuery } from "../../redux/features/others/othersApi";
 
 const Support = () => {
   const [activeTab, setActiveTab] = useState("all");
-
-  const data = [
-    {
-      key: "1",
-      name: "Mr.Smith",
-      userType: "Client",
-      email: "mrsmith14@gmail.com",
-      description: "A new support request has been submitted by a Client",
-      time: "10:00 AM, Today",
-      hasNotification: true,
-      notificationCount: "1140 x 66",
-    },
-    {
-      key: "2",
-      name: "Mr.Smith",
-      userType: "Client",
-      email: "mrsmith14@gmail.com",
-      description: "A new support request has been submitted by a Client",
-      time: "10:00 AM, Today",
-    },
-    {
-      key: "3",
-      name: "Mr.Smith",
-      userType: "Client",
-      email: "mrsmith14@gmail.com",
-      description: "A new support request has been submitted by a Client",
-      time: "10:00 AM, Today",
-    },
-    {
-      key: "4",
-      name: "Mr.Smith",
-      userType: "Vendor",
-      email: "mrsmith14@gmail.com",
-      description: "A new support request has been submitted by a Client",
-      time: "10:00 AM, Today",
-    },
-    {
-      key: "5",
-      name: "Mr.Smith",
-      userType: "Client",
-      email: "mrsmith14@gmail.com",
-      description: "A new support request has been submitted by a Client",
-      time: "10:00 AM, Today",
-    },
-    {
-      key: "6",
-      name: "Mr.Smith",
-      userType: "Vendor",
-      email: "mrsmith14@gmail.com",
-      description: "A new support request has been submitted by a Client",
-      time: "10:00 AM, Today",
-    },
-  ];
-
+const {data:getAllSupport}=useGetAllSupportQuery(undefined)
+  // const data = [
+  //   {
+  //     key: "1",
+  //     name: "Mr.Smith",
+  //     userType: "Client",
+  //     email: "mrsmith14@gmail.com",
+  //     description: "A new support request has been submitted by a Client",
+  //     time: "10:00 AM, Today",
+  //     hasNotification: true,
+  //     notificationCount: "1140 x 66",
+  //   },
+  //   {
+  //     key: "2",
+  //     name: "Mr.Smith",
+  //     userType: "Client",
+  //     email: "mrsmith14@gmail.com",
+  //     description: "A new support request has been submitted by a Client",
+  //     time: "10:00 AM, Today",
+  //   },
+  //   {
+  //     key: "3",
+  //     name: "Mr.Smith",
+  //     userType: "Client",
+  //     email: "mrsmith14@gmail.com",
+  //     description: "A new support request has been submitted by a Client",
+  //     time: "10:00 AM, Today",
+  //   },
+  //   {
+  //     key: "4",
+  //     name: "Mr.Smith",
+  //     userType: "Vendor",
+  //     email: "mrsmith14@gmail.com",
+  //     description: "A new support request has been submitted by a Client",
+  //     time: "10:00 AM, Today",
+  //   },
+  //   {
+  //     key: "5",
+  //     name: "Mr.Smith",
+  //     userType: "Client",
+  //     email: "mrsmith14@gmail.com",
+  //     description: "A new support request has been submitted by a Client",
+  //     time: "10:00 AM, Today",
+  //   },
+  //   {
+  //     key: "6",
+  //     name: "Mr.Smith",
+  //     userType: "Vendor",
+  //     email: "mrsmith14@gmail.com",
+  //     description: "A new support request has been submitted by a Client",
+  //     time: "10:00 AM, Today",
+  //   },
+  // ];
+console.log("get all support-->",getAllSupport?.data?.data);
   const columns = [
     {
       title: "",
       key: "user",
       render: (_, record) => (
         <div className="flex items-center gap-2">
-          <span className="font-medium">{record.name}</span>
+          <span className="font-medium">{record?.user?.fullName}</span>
           <Tag
             color="transparent"
             bordered
             style={{
-              borderColor: record.userType === "Client" ? "#35BEBD" : "orange", // Outline color based on userType
-              color: record.userType === "Client" ? "#35BEBD" : "orange", // Text color based on userType
+              borderColor: record?.user?.role === "Client" ? "#35BEBD" : "orange", // Outline color based on userType
+              color: record?.user?.role === "Client" ? "#35BEBD" : "orange", // Text color based on userType
             }}
             className="text-xs px-2 py-0 rounded"
           >
-            {record.userType}
+            {record?.user?.role}
           </Tag>
         </div>
       ),
@@ -86,9 +87,9 @@ const Support = () => {
       render: (_, record) => (
         <div>
           <div className="flex items-center gap-2">
-            <span className="text-[#35BEBD] font-medium">{record.email}</span>
+            <span className="text-[#35BEBD] font-medium">{record?.user?.email}</span>
           </div>
-          <div className="text-gray-500 text-sm">{record.description}</div>
+          <div className="text-gray-500 text-sm">{record?.latestSubject}</div>
         </div>
       ),
       width: "65%",
@@ -99,7 +100,7 @@ const Support = () => {
       key: "time",
       align: "right",
       width: "20%",
-      render: (time) => <span className="text-gray-500">{time}</span>,
+      render: (time) => <span className="text-gray-500">-----------</span>,
     },
   ];
 
@@ -157,7 +158,7 @@ const Support = () => {
       {/* Table with Pagination */}
       <div className=" mx-auto">
         <Table
-          dataSource={data}
+          dataSource={getAllSupport?.data?.data}
           columns={columns}
           pagination={{ pageSize: 5  }} // Pagination handled directly in the Table component
           scroll={{ x: "max-content" }}

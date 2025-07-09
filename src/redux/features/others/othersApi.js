@@ -34,6 +34,12 @@ const othersApi = baseApi.injectEndpoints({
         method: "GET",      
       }),
     }),
+     getAllSupport: builder.query({
+      query: () => ({
+        url:`/support/retrieve/all`,
+        method: "GET",      
+      }),
+    }),
 
   }),
 
@@ -42,4 +48,4 @@ const othersApi = baseApi.injectEndpoints({
 
 });
 
-export const { useAboutUsMutation,usePrivacyPolicyMutation,useTermsPolicyMutation,useGetAllFaqQuery,useCreateNewFaqMutation} = othersApi;
+export const { useAboutUsMutation,usePrivacyPolicyMutation,useTermsPolicyMutation,useGetAllFaqQuery,useCreateNewFaqMutation,useGetAllSupportQuery} = othersApi;
