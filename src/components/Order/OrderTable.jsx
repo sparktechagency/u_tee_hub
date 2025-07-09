@@ -1,8 +1,7 @@
 import { ConfigProvider, Modal, Table } from "antd";
 import { useState } from "react";
 import { IoMdEye } from "react-icons/io";
-import { MdBlockFlipped } from "react-icons/md";
-import { RiDeleteBin6Line, RiEdit2Line } from "react-icons/ri";
+import { RiDeleteBin6Line} from "react-icons/ri";
 import { Link } from "react-router-dom";
 
 
@@ -58,14 +57,14 @@ const OrderTable = ({order}) => {
             key: "action",
             render: (_, record) => (
               <div className="flex items-center justify-center gap-4">
-                <Link to={`/order/${record.orderId}`}>
+                <Link to={`/order/${record?._id}`}>
                   <button>
                     <IoMdEye  className="text-[#C8CAD8] w-5 h-5" />
                   </button>
                 </Link>
-                <button onClick={showModal}>
+                {/* <button onClick={showModal}>
                   <RiDeleteBin6Line className="text-[#C8CAD8] w-5 h-5" />
-                </button>
+                </button> */}
               </div>
             ),
           },
@@ -102,7 +101,7 @@ const OrderTable = ({order}) => {
           pagination={{ pageSize: 10 }}
           scroll={{ x: "max-content" }}
         />
-        <Modal
+        <Modal 
           open={isModalOpen}
           centered
           onCancel={handleCancel}

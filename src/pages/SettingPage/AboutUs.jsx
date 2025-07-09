@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
+import { useAboutUsMutation } from "../../redux/features/others/othersApi";
+import { message } from "antd";
 
 function AboutUs() {
   // Set initial content from localStorage or fallback to the default value if not set
+  const [aboutUs]=useAboutUsMutation();
   const [content, setContent] = useState(() => {
     const savedContent = localStorage.getItem("aboutUsContent");
     return savedContent || "U Tee Hub is a creative platform designed for makers, dreamers, and entrepreneurs who want to build their own apparel brand without any hassle. From custom t-shirt designing to doorstep delivery — we provide everything a creator needs to launch and grow their fashion brand. Our mission is to make fashion entrepreneurship accessible to all — whether you're a professional designer or just starting out. We handle the printing, logistics, and technology, so you can focus on what you do best: creating. Join thousands of creators who are building their brands, earning from their designs, and expressing their vision through fashion. U Tee Hub is more than just a platform — it’s your launchpad to something bigger.";
@@ -13,7 +16,19 @@ function AboutUs() {
   useEffect(() => {
     localStorage.setItem("aboutUsContent", content);
   }, [content]);
-
+const handleAboutUs =async (data)=>{
+  try{
+const res = await aboutUs(data);
+if(res?.data){
+  message.success(res?.data?.message)
+}else{
+  message.error("somthing went wrong,try again")
+}
+console.log("response about us--->",res);
+  }catch(err){
+console.log(err);
+  }
+}
   return (
     <div className="p-5 bg-white">
       <h1 className="text-start text-3xl font-bold mb-5 text-[#35BEBD] font-title">About Us</h1>
@@ -29,7 +44,7 @@ function AboutUs() {
       <div className="text-center py-5">
         <button
           className="bg-teal-400 hover:bg-teal-500 text-white font-semibold py-2 px-6 rounded-lg mx-auto block"
-          onClick={() => console.log(content)} // You can replace this with other actions as needed
+          onClick={() => handleAboutUs(handleAboutUs)} // You can replace this with other actions as needed
         >
           Save Changes
         </button>

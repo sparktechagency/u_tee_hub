@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { toast } from "react-toastify";
+import { usePrivacyPolicyMutation } from "../../redux/features/others/othersApi";
+import { message } from "antd";
 
 function PrivacyPolicy() {
     const [content, setContent] = useState("");
-
+ const [privacyPolicy]=usePrivacyPolicyMutation();
     // Load saved content from localStorage when the page loads
     useEffect(() => {
       const savedContent = localStorage.getItem("privacyPolicyContent");
@@ -20,21 +22,31 @@ function PrivacyPolicy() {
             <li>Mention the types of data collected (e.g., personal information, transaction data, usage data).</li>
           </ul>
   
-          <h2>2. Information We Collect</h2>
+          <h2>2. Information We Collects</h2>
           <ul>
             <li>Personal Information: Names, email addresses, phone numbers, etc.</li>
             <li>Payment Information: Credit/debit card details (if applicable).</li>
             <li>Usage Data: How users interact with the app, device details, IP addresses.</li>
             <li>Cookies and Tracking Technologies: Information about the cookies or other tracking methods used.</li>
           </ul>
-        `);
+  `);
       }
     }, []);
   
     // Save content to localStorage whenever it changes
-    const handleSave = () => {
+    const handleSave = async() => {
       localStorage.setItem("privacyPolicyContent", content);
-      toast.success("Privacy Policy Saved Successfully!");
+     try{
+const res = await privacyPolicy(content);
+if(res?.data){
+  message.success(res?.data?.message)
+}else{
+  message.error("somthing went wrong,try again")
+}
+console.log("response about us--->",res);
+  }catch(err){
+message.error(err?.error)
+  }
     };
   
     return (
