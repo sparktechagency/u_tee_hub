@@ -62,9 +62,9 @@ const OrderTable = ({order}) => {
                     <IoMdEye  className="text-[#C8CAD8] w-5 h-5" />
                   </button>
                 </Link>
-                <button onClick={showModal}>
+                {/* <button onClick={showModal}>
                   <RiDeleteBin6Line className="text-[#C8CAD8] w-5 h-5" />
-                </button>
+                </button> */}
               </div>
             ),
           },
@@ -101,7 +101,7 @@ const OrderTable = ({order}) => {
           pagination={{ pageSize: 10 }}
           scroll={{ x: "max-content" }}
         />
-        <Modal
+        <Modal 
           open={isModalOpen}
           centered
           onCancel={handleCancel}

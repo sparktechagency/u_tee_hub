@@ -115,6 +115,10 @@ const formattedDate = `${day}/${month}/${year}`;
                 <p className="text-gray-500">Shipping Method</p>
                 <p className="text-gray-700">{order?.deliveryOption}</p>
               </div>
+              <div className="grid grid-cols-2 gap-2">
+                <p className="text-gray-500">Shipping Address</p>
+                <p className="text-gray-700">{order?.shippingAddress}</p>
+              </div>
   
               {/* <div className="mt-8"></div>
   
