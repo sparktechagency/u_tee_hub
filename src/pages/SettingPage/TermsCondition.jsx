@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { toast } from "react-toastify";
+import { useTermsPolicyMutation } from "../../redux/features/others/othersApi";
+import { message } from "antd";
 
 function TermsCondition() {
   const [content, setContent] = useState("");
-  
+   const [termsPolicy]=useTermsPolicyMutation();
     // Load saved content from localStorage when the page loads
     useEffect(() => {
       const savedContent = localStorage.getItem("privacyPolicyContent");
@@ -32,9 +34,19 @@ function TermsCondition() {
     }, []);
   
     // Save content to localStorage whenever it changes
-    const handleSave = () => {
-      localStorage.setItem("privacyPolicyContent", content);
-      toast.success("Privacy Policy Saved Successfully!");
+    const handleSave = async() => {
+      localStorage.setItem("TermsPolicyContent", content);
+        try{
+const res = await termsPolicy(content);
+if(res?.data){
+  message.success(res?.data?.message)
+}else{
+  message.error("somthing went wrong,try again")
+}
+console.log("response about us--->",res);
+  }catch(err){
+message.error(err?.error)
+  }
     };
   
     return (

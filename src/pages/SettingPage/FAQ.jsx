@@ -3,12 +3,14 @@ import { useState } from "react";
 import { FaRegQuestionCircle } from "react-icons/fa";
 import { FaChevronDown } from "react-icons/fa6";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { useGetAllFaqQuery } from "../../redux/features/others/othersApi";
 
 const FAQ = () => {
   const [isAccordionOpen, setIsAccordionOpen] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [addModalOpen, setAddModalOpen] = useState(false);
-
+const {data:getAllFaq}=useGetAllFaqQuery(undefined)
+console.log("data---->",getAllFaq?.data);
   // Accordion data
   const AccordionData = [
     {
@@ -61,7 +63,7 @@ const FAQ = () => {
       </div>
 
       <div className="flex gap-2 flex-col w-[90%] mt-5">
-        {AccordionData?.map((accordion, index) => (
+        {getAllFaq?.data?.map((accordion, index) => (
           <section
             key={index}
             className="border-b border-[#e5eaf2] rounded py-3"
@@ -72,7 +74,7 @@ const FAQ = () => {
             >
               <h2 className="text-base font-normal md:font-bold md:text-lg flex gap-2 items-center">
                
-                {accordion.title}
+                {accordion.question}
               </h2>
               <div className="flex gap-2 md:gap-4 items-center">
                 <FaChevronDown
@@ -92,7 +94,7 @@ const FAQ = () => {
               }`}
             >
               <p className="text-[#424242] text-[0.9rem] overflow-hidden bg-[#E1FFFF] p-5">
-                {accordion.description}
+                {accordion.answer}
               </p>
             </div>
           </section>

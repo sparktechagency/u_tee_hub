@@ -16,6 +16,18 @@ const othersApi = baseApi.injectEndpoints({
         method: "POST",      
       }),
     }),
+     termsPolicy: builder.mutation({
+      query: () => ({
+        url:`terms-condition/create-or-update`,
+        method: "POST",      
+      }),
+    }),
+     getAllFaq: builder.query({
+      query: () => ({
+        url:`/faq/retrieve`,
+        method: "GET",      
+      }),
+    }),
 
   }),
 
@@ -24,4 +36,4 @@ const othersApi = baseApi.injectEndpoints({
 
 });
 
-export const { useAboutUsMutation,usePrivacyPolicyMutation} = othersApi;
+export const { useAboutUsMutation,usePrivacyPolicyMutation,useTermsPolicyMutation,useGetAllFaqQuery} = othersApi;

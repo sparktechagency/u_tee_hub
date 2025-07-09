@@ -29,7 +29,7 @@ function PrivacyPolicy() {
             <li>Usage Data: How users interact with the app, device details, IP addresses.</li>
             <li>Cookies and Tracking Technologies: Information about the cookies or other tracking methods used.</li>
           </ul>
-        `);
+  `);
       }
     }, []);
   
