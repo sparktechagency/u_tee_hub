@@ -3,7 +3,7 @@ import { baseApi } from "../../api/baseApi";
 const orderApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
 
-  getAllBooks: builder.query({
+  getAllOrders: builder.query({
       query: (args) => {
         const params = new URLSearchParams();
     
@@ -16,24 +16,33 @@ const orderApi = baseApi.injectEndpoints({
         }
     
         return {
-          url: "/book/retrieve",
+          url: "/order/retrieve/all",
           method: "GET",
           params: params,
         };
       },
-      providesTags: ["books"],
+      providesTags: ["orders"],
       
 
       transformResponse: (response) => {
         return {
           data: response?.data,
-          meta: response?.meta,
         };
       },
     }),
-  
+     singleOrder: builder.query({
+      query: (id) => ({
+        url:`/order/retrieve/specific/${id}`,
+        method: "GET",
+      
+      }),
+    }),
 
   }),
+
+
+  
+
 });
 
-export const { useUpdateProfileMutation} = orderApi;
+export const { useGetAllOrdersQuery,useSingleOrderQuery} = orderApi;
