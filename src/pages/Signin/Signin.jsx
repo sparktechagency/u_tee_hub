@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Form, Input, Checkbox, Divider, Typography } from "antd";
 import { FaApple, FaGoogle, FaRegEyeSlash } from "react-icons/fa";
-import { IoEyeOutline } from "react-icons/io5"; 
+import { IoEyeOutline } from "react-icons/io5";
 
 import logo from "../../assets/Logo.png";
 import loginImg from "../../assets/login.png";
@@ -17,31 +17,30 @@ const { Title, Text } = Typography;
 
 const Signin = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
-const [login]=useLoginMutation();
-  const onFinish = async(values) => {
-
+  const [login] = useLoginMutation();
+  const onFinish = async (values) => {
     console.log("Form submitted:", values); // Display form values in the console
-     setLoading(true);
- try{
-    const userInfo = {email:values.email,password:values.password}
-   
+    setLoading(true);
+    try {
+      const userInfo = { email: values.email, password: values.password };
+
       const res = await login(userInfo).unwrap();
-      console.log("res===>",res);
-      setLoading(true)
+      console.log("res===>", res);
+      setLoading(true);
       const user = verifyToken(res.data.accessToken);
       console.log("dispatchUser", user);
       dispatch(setUser({ user: user, token: res.data.accessToken }));
-      setLoading(false)
+      setLoading(false);
       toast.success(res?.message);
-  navigate("/");
+      navigate("/");
 
- // eslint-disable-next-line @typescript-eslint/no-explicit-any ---
- }catch(err){
-    toast.error(err?.data?.message) 
- }
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any ---
+    } catch (err) {
+      toast.error(err?.data?.message);
+    }
   };
   return (
     <div className="max-w-7xl mx-auto w-full flex md:flex-row flex-col justify-center items-center gap-8 md:ml-16 lg:ml-96">
@@ -138,7 +137,8 @@ const [login]=useLoginMutation();
                   </Form.Item>
                 </div>
                 <div>
-                  <Link to="/forget-password"
+                  <Link
+                    to="/forget-password"
                     href="#"
                     className="text-sm text-[#ff6b6b] hover:text-[#ff5252]"
                   >

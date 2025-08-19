@@ -2,7 +2,7 @@ import {createApi, fetchBaseQuery} from "@reduxjs/toolkit/query/react"
 
 
 const baseQuery = fetchBaseQuery({
-    baseUrl: "http://10.0.60.55:5007/v1",
+    baseUrl: "https://gmosley-uteehub-backend.onrender.com/v1",
     // credentials: "include",
     prepareHeaders: (headers, { getState }) => {
       const token = (getState()).auth.token;
@@ -11,7 +11,7 @@ const baseQuery = fetchBaseQuery({
       }
       return headers;
     },
-  });
+  }); 
 
 
 
