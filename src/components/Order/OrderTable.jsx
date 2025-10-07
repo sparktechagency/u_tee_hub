@@ -7,6 +7,7 @@ import { Link } from "react-router-dom";
 
 const OrderTable = ({order}) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
+      const [page, setPage] = useState(1);
     const showModal = () => {
       setIsModalOpen(true);
     };

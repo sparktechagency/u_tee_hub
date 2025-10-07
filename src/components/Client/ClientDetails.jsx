@@ -4,63 +4,7 @@ import clientImg from "../../assets/client-image.png";
 import Swal from "sweetalert2";
 import { useSingleUserQuery } from "../../redux/features/user/userApi";
 // Assuming this is your client data
-const clients = [
-  { id: 1, name: "John Doe", email: "john.doe@example.com", country: "USA" },
-  {
-    id: 2,
-    name: "Jane Smith",
-    email: "jane.smith@example.com",
-    country: "Canada",
-  },
-  {
-    id: 3,
-    name: "Emily Johnson",
-    email: "emily.johnson@example.com",
-    country: "UK",
-  },
-  {
-    id: 4,
-    name: "Michael Brown",
-    email: "michael.brown@example.com",
-    country: "Australia",
-  },
-  {
-    id: 5,
-    name: "Sarah Davis",
-    email: "sarah.davis@example.com",
-    country: "Germany",
-  },
-  {
-    id: 6,
-    name: "David Wilson",
-    email: "david.wilson@example.com",
-    country: "France",
-  },
-  {
-    id: 7,
-    name: "Jessica Lee",
-    email: "jessica.lee@example.com",
-    country: "South Korea",
-  },
-  {
-    id: 8,
-    name: "Daniel Martinez",
-    email: "daniel.martinez@example.com",
-    country: "Mexico",
-  },
-  {
-    id: 9,
-    name: "Sophia Taylor",
-    email: "sophia.taylor@example.com",
-    country: "Italy",
-  },
-  {
-    id: 10,
-    name: "James Harris",
-    email: "james.harris@example.com",
-    country: "Spain",
-  },
-];
+
 
 const ClientDetails = () => {
   const { id } = useParams();
@@ -166,7 +110,7 @@ const handleReject=()=>{
           <p className="text-gray-700">30</p>
 
           <p className="text-gray-500">Joined</p>
-          <p className="text-gray-700">(MM/DD/YYYY)</p>
+          <p className="text-gray-700">{singleUser?.data?.createdAt.split('T')[0]}</p>
         </div>
       </div>
     </div>

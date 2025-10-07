@@ -1,4 +1,4 @@
-import { Input } from "antd";
+import { Input, Pagination } from "antd";
 import { useState } from "react";
 import ClientCard from "../../components/Client/ClientCard";
 import { IoSearch } from "react-icons/io5";
@@ -6,8 +6,17 @@ import { useAllUserQuery } from "../../redux/features/user/userApi";
 
 const Client = () => {
   const [searchTerm, setSearchTerm] = useState(""); 
-const {data:alluser}=useAllUserQuery(searchTerm)
+    const [page, setPage] = useState(1);
+const {data:alluser}=useAllUserQuery({searchTerm,page})
 console.log("all user",alluser?.data);
+  const meta = alluser?.meta;
+  const limit = meta?.limit;
+  const totalItems = meta?.total;
+  
+
+  const onPageChange = (page) => {
+    setPage(page);
+  };
   const clients = [
     { id: 1, name: "John Doe", email: "john.doe@example.com", country: "USA" },
     { id: 2, name: "Jane Smith", email: "jane.smith@example.com", country: "Canada" },
@@ -65,7 +74,18 @@ console.log("all user",alluser?.data);
     <p className="text-black">No clients found.</p>
   )}
 </div>
-
+  {/* Pagination */}
+        <div className="mt-4 flex justify-end">
+          <Pagination
+            current={page}
+            pageSize={limit}
+            total={totalItems}
+            onChange={onPageChange}
+            showSizeChanger={false}
+            className="flex justify-center"
+            pageSizeOptions={[limit?.toString()]}
+          />
+        </div>
     </div>
   );
 };

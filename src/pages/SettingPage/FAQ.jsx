@@ -10,7 +10,7 @@ const FAQ = () => {
   const [question, setQuestion] = useState(""); // state for question input
   const [answer, setAnswer] = useState(""); // state for answer input
 
-  const { data: getAllFaq } = useGetAllFaqQuery(undefined);
+  const { data: getAllFaq,refetch } = useGetAllFaqQuery(undefined);
   console.log("data---->", getAllFaq?.data);
   const [createNewFaq] = useCreateNewFaqMutation();
   const handleClick = (index) => {
@@ -28,10 +28,14 @@ const FAQ = () => {
       question,
       answer,
     }
+    console.log("data--------->",data);
+   
     try {
       const res = await createNewFaq(data)
+      console.log("res------>",res);
       if (res?.data) {
         message.success(res?.data?.message)
+        refetch()
       } else {
         message.error("somthing went wrong,try again")
       }
