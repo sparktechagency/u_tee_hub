@@ -142,11 +142,11 @@ const Support = () => {
               setReplyOpen(true);
             }}
           />
-          <MdOutlineDelete
+          {/* <MdOutlineDelete
             className="text-red-500 cursor-pointer hover:scale-110 transition-transform"
             title="Delete"
             onClick={() => handleDelete(record)}
-          />
+          /> */}
         </div>
       ),
     },

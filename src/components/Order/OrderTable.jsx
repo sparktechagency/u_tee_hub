@@ -33,8 +33,15 @@ const OrderTable = ({order}) => {
         },
         {
           title: "Order Date",
-          dataIndex: "orderDate",
-          key: "orderDate",
+          dataIndex: "createdAt",
+          key: "createdAt",
+             render: (time) => (
+        <span className="text-gray-500">
+     
+            {time?.split("T")[0]}
+        
+        </span>
+      ),
         },
         {
           title: "Price",
@@ -102,6 +109,7 @@ const OrderTable = ({order}) => {
           columns={columns}
           pagination={{ pageSize: 10 }}
           scroll={{ x: "max-content" }}
+          className="text-center"
         />
 
         <Modal 
@@ -127,7 +135,7 @@ const OrderTable = ({order}) => {
             </div>
           </div>
         </Modal>
-        
+
       </ConfigProvider>
         </div>
     );
