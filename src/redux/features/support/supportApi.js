@@ -3,12 +3,13 @@ import { baseApi } from "../../api/baseApi";
 const supportApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     allSupport: builder.query({
-      query: ({ searchTerm, type }) => {
+      query: ({ searchTerm, type,page}) => {
 
         const params = new URLSearchParams();
 
         if (type) params.append("messages.sender", type);
         if (searchTerm) params.append("search", searchTerm);
+        if(page) params.append("page",page)
 
         return {
           url: `/support/retrieve/all?${params.toString()}`,

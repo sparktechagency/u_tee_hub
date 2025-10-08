@@ -23,8 +23,8 @@ const Vendor = () => {
   const pageSize = Number(meta?.limit ?? 10);
   const total = Number(meta?.total ?? 0);
 
-  const handleSearchChange = (e) => setSearchTerm(e.target.value.toLowerCase());
   const handlePageChange = (nextPage) => setPage(nextPage);
+  const handleSearchChange = (e) => setSearchTerm(e.target.value.toLowerCase());
 
   // 🔹 Generic status updater
   const updateVendorStatus = async (vendor, newStatus) => {

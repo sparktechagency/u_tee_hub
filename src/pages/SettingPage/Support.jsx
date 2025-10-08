@@ -13,7 +13,7 @@ import {
 const Support = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("vendor");
-
+  const [page, setPage] = useState(1);
   // Tailwind modals and state
   const [replyOpen, setReplyOpen] = useState(false);
   const [composeOpen, setComposeOpen] = useState(false);
@@ -24,8 +24,16 @@ const Support = () => {
   const { data: getAllSupport, refetch } = useAllSupportQuery({
     searchTerm,
     type: activeTab,
+    page
   });
 
+
+  const meta = getAllSupport?.data?.meta;
+  const currentPage = Number(page ?? 1);
+  const pageSize = Number(meta?.limit ?? 10);
+  const total = Number(meta?.total ?? 0);
+
+  const handlePageChange = (nextPage) => setPage(nextPage);
   const [replySupport, { isLoading: replying }] = useReplySupportMutation();
   const [composeEmail, { isLoading: composing }] = useComposeEmailMutation();
   const [deleteSupport, { isLoading: deleting }] = useDeleteSupportMutation();
@@ -215,7 +223,16 @@ const Support = () => {
       <Table
         dataSource={getAllSupport?.data?.data}
         columns={columns}
-        pagination={{ pageSize: 5 }}
+             pagination={{
+            current: currentPage,
+            pageSize,
+            total,
+            showSizeChanger: false,
+          }}
+          onChange={(pagination) => {
+            const next = pagination?.current ?? 1;
+            if (next !== currentPage) handlePageChange(next);
+          }}
         rowClassName={() => "bg-[#EBFFFF]"}
         className="border border-blue-100 rounded-md overflow-hidden"
       />
