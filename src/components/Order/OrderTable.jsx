@@ -21,11 +21,11 @@ const OrderTable = ({order}) => {
           dataIndex: "orderId",
           key: "orderId",
         },
-        {
-          title: "Products",
-          dataIndex: "product",
-          key: "product",
-        },
+        // {
+        //   title: "Products",
+        //   dataIndex: "product",
+        //   key: "product",
+        // },
         {
           title: "Qty",
           dataIndex: "quantity",
@@ -92,6 +92,7 @@ const OrderTable = ({order}) => {
               headerColor: "rgb(255,255,255)",
               cellFontSize: 16,
               headerSplitColor: "#00c0b5",
+              
             },
           },
         }}
@@ -102,6 +103,7 @@ const OrderTable = ({order}) => {
           pagination={{ pageSize: 10 }}
           scroll={{ x: "max-content" }}
         />
+
         <Modal 
           open={isModalOpen}
           centered
@@ -125,6 +127,7 @@ const OrderTable = ({order}) => {
             </div>
           </div>
         </Modal>
+        
       </ConfigProvider>
         </div>
     );
