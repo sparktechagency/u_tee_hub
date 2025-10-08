@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Table, Tag, Input, message as antdMessage } from "antd";
 import { IoSearch } from "react-icons/io5";
 import { MdOutlineReply, MdOutlineDelete } from "react-icons/md";
@@ -14,7 +14,7 @@ const Support = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("vendor");
 
-  // Tailwind modals and state
+  // Tailwind-based modals
   const [replyOpen, setReplyOpen] = useState(false);
   const [composeOpen, setComposeOpen] = useState(false);
   const [selectedSupport, setSelectedSupport] = useState(null);
@@ -30,9 +30,11 @@ const Support = () => {
   const [composeEmail, { isLoading: composing }] = useComposeEmailMutation();
   const [deleteSupport, { isLoading: deleting }] = useDeleteSupportMutation();
 
-  // reply submit
+  // Reply handler (fixed)
   const handleReply = async () => {
-    if (!messageText.trim()) return antdMessage.warning("Please enter a message.");
+    if (!messageText.trim()) {
+      return antdMessage.warning("Please enter a message before sending.");
+    }
     try {
       await replySupport({
         supportId: selectedSupport?._id,
@@ -48,10 +50,11 @@ const Support = () => {
     }
   };
 
-  // compose submit
+  // Compose handler
   const handleCompose = async () => {
-    if (!composeData.to || !composeData.subject || !composeData.body)
+    if (!composeData.to || !composeData.subject || !composeData.body) {
       return antdMessage.warning("All fields are required.");
+    }
     try {
       await composeEmail(composeData).unwrap();
       antdMessage.success("Email sent successfully!");
@@ -63,7 +66,7 @@ const Support = () => {
     }
   };
 
-  // delete
+  // Delete handler
   const handleDelete = async (record) => {
     if (confirm("Are you sure you want to delete this support?")) {
       try {
@@ -154,14 +157,8 @@ const Support = () => {
 
   const handleSearchChange = (e) => setSearchTerm(e.target.value.toLowerCase());
 
-  // auto-scroll to bottom of chat
-  useEffect(() => {
-    const el = document.getElementById("chat-scroll");
-    if (el) el.scrollTop = el.scrollHeight;
-  }, [selectedSupport, replyOpen]);
-
   return (
-    <div className="relative text-gray-800">
+    <div className="relative">
       {/* Tabs + Search */}
       <div className="flex justify-between items-center pt-0 mb-3">
         <div className="flex gap-5 text-md md:text-xl font-semibold mb-3">
@@ -220,96 +217,43 @@ const Support = () => {
         className="border border-blue-100 rounded-md overflow-hidden"
       />
 
-      {/* ---------------- CHAT MODAL WITH MESSAGE HISTORY ---------------- */}
+      {/* Reply Modal (Tailwind) */}
       {replyOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
-          <div className="bg-white rounded-lg w-[95%] sm:w-[550px] h-[80vh] flex flex-col shadow-lg relative overflow-hidden">
-            {/* Header */}
-            <div className="flex justify-between items-center p-4 border-b">
-              <h2 className="text-lg font-semibold text-gray-800">
-                Conversation with {selectedSupport?.user?.fullName}
-              </h2>
-              <button
-                onClick={() => setReplyOpen(false)}
-                className="text-gray-500 hover:text-gray-700 text-xl"
+          <div className="bg-white rounded-lg w-[90%] sm:w-[450px] p-5 shadow-lg relative">
+            <h2 className="text-xl text-black font-semibold mb-3">
+              Reply to {selectedSupport?.user?.fullName}
+            </h2>
+            <textarea
+              value={messageText}
+              onChange={(e) => setMessageText(e.target.value)}
+              className="w-full border rounded-md p-2 mb-4 text-black"
+              rows={4}
+              placeholder="Write your reply..."
+            />
+            <div className="flex justify-end gap-3">
+      <button
+                onClick={() => setComposeOpen(false)}
+                className="border text-black border-gray-300 rounded-md px-4 py-2 hover:bg-gray-100"
               >
-                ✕
+                Cancel
               </button>
-            </div>
-
-            {/* Message List */}
-            <div
-              id="chat-scroll"
-              className="flex-1 overflow-y-auto px-4 py-3 space-y-3 bg-gray-50"
-            >
-              {selectedSupport?.messages?.length ? (
-                selectedSupport.messages.map((msg, idx) => (
-                  <div
-                    key={idx}
-                    className={`flex ${
-                      msg.sender === "super_admin"
-                        ? "justify-end"
-                        : "justify-start"
-                    }`}
-                  >
-                    <div
-                      className={`max-w-[75%] rounded-2xl px-4 py-2 shadow-sm transition-all duration-300 ${
-                        msg.sender === "super_admin"
-                          ? "bg-[#00C0B5] text-white"
-                          : "bg-white border text-gray-800"
-                      }`}
-                    >
-                      <p className="text-sm whitespace-pre-line">{msg.message}</p>
-                      <p
-                        className={`text-[10px] mt-1 ${
-                          msg.sender === "super_admin"
-                            ? "text-gray-200"
-                            : "text-gray-500"
-                        }`}
-                      >
-                        {new Date(msg.sentAt).toLocaleString()}
-                      </p>
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <p className="text-center text-gray-500 mt-5">No messages yet</p>
-              )}
-            </div>
-
-            {/* Reply Input */}
-            <div className="p-4 border-t bg-white">
-              <textarea
-                value={messageText}
-                onChange={(e) => setMessageText(e.target.value)}
-                className="w-full border rounded-md p-2 text-sm text-gray-700 focus:ring focus:ring-[#00C0B5] focus:outline-none"
-                rows={3}
-                placeholder="Type your reply..."
-              />
-              <div className="flex justify-end gap-3 mt-3">
-                <button
-                  onClick={() => setReplyOpen(false)}
-                  className="border border-gray-300 rounded-md px-4 py-2 text-sm hover:bg-gray-100"
-                >
-                  Cancel
-                </button>
-                <button
-                  onClick={handleReply}
-                  disabled={replying}
-                  className="bg-[#00C0B5] text-white rounded-md px-5 py-2 text-sm font-medium hover:bg-[#009a92] transition"
-                >
-                  {replying ? "Sending..." : "Send"}
-                </button>
-              </div>
+              <button
+                onClick={handleReply}
+                disabled={replying}
+                className="bg-[#00C0B5] text-white rounded-md px-4 py-2 hover:bg-[#009a92] transition"
+              >
+                {replying ? "Sending..." : "Send Reply"}
+              </button>
             </div>
           </div>
         </div>
       )}
 
-      {/* ---------------- COMPOSE EMAIL MODAL ---------------- */}
+      {/* Compose Modal (Tailwind) */}
       {composeOpen && (
         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-40 z-50">
-          <div className="bg-white rounded-lg w-[95%] sm:w-[450px] p-5 shadow-lg relative">
+          <div className="bg-white rounded-lg w-[90%] sm:w-[450px] p-5 shadow-lg relative">
             <h2 className="text-xl font-semibold mb-3">Compose New Email</h2>
             <input
               type="email"
@@ -330,9 +274,7 @@ const Support = () => {
             <textarea
               placeholder="Write your email..."
               value={composeData.body}
-              onChange={(e) =>
-                setComposeData({ ...composeData, body: e.target.value })
-              }
+              onChange={(e) => setComposeData({ ...composeData, body: e.target.value })}
               className="w-full border rounded-md p-2 mb-4"
               rows={4}
             />
