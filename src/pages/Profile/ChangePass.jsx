@@ -45,27 +45,27 @@ const onFinish = async (values) => {
         <div className="">
           <div className="relative text-center items-center justify-center flex">
             <div>
-              <img src={profile} alt="Profile" className="w-36" />
+              <img src={"https://cdn-icons-png.flaticon.com/512/3607/3607444.png"} alt="Profile" className="w-36" />
             </div>
-            <div className="absolute top-20 left-[224px]">
+            {/* <div className="absolute top-20 left-[224px]">
               <div className="bg-[#35BEBD] w-12 h-12 rounded-full relative">
-                {/* <TbPhotoScan className="text-white text-3xl ml-1 top-1 absolute" /> */}
+          
                 <img
                   src={gallery}
                   alt=""
                   className="text-white text-3xl left-2.5 top-2.5 absolute w-7"
                 />
               </div>
-            </div>
+            </div> */}
           </div>
-          <p className="text-[#35BEBD] text-center font-title my-3">
+          {/* <p className="text-[#35BEBD] text-center font-title my-3">
             Edit Photo
-          </p>
-          <Link to={"/changePass"}>
+          </p> */}
+          <Link to={"/profile"}>
             {" "}
             <p className="text-[#313131] text-center font-title my-3 underline text-lg">
               {" "}
-              Change Password
+             Edit Profile
             </p>
           </Link>
         </div>

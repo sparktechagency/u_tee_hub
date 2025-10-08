@@ -31,8 +31,12 @@ const Signin = () => {
       console.log("res===>", res);
       setLoading(true);
       const user = verifyToken(res.data.accessToken);
+      const id = res?.data?._id
       console.log("dispatchUser", user);
-      dispatch(setUser({ user: user, token: res.data.accessToken }));
+      const data = {
+        ...user,id
+      }
+      dispatch(setUser({ user: data, token: res.data.accessToken }));
       setLoading(false);
       toast.success(res?.message);
       navigate("/");

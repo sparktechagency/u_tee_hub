@@ -30,6 +30,13 @@ const userApi = baseApi.injectEndpoints({
    
       }),
     }),
+    updateAdmin: builder.mutation({
+      query: ({id,data}) => ({
+        url: `/admin/update/${id}`,
+        method: "PATCH",
+   body:data
+      }),
+    }),
     getPendingVendors: builder.query({
       query: (page) => ({
         url: `/user/retrieve/all?profile.role=vendor`,
@@ -49,6 +56,12 @@ const userApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+    singleAdmin: builder.query({
+      query: (id) => ({
+        url: `/admin/retrive/${id}`,
+        method: "GET",
+      }),
+    }),
   }),
 });
 
@@ -59,5 +72,7 @@ export const {
   useUpdateVendorsStatusMutation,
   useAllAdminQuery,
   useCreateAdminMutation,
-  useDeleteAdminMutation
+  useDeleteAdminMutation,
+  useUpdateAdminMutation,
+  useSingleAdminQuery
 } = userApi;

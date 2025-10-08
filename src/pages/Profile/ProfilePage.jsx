@@ -7,24 +7,38 @@ import { useState } from "react";
 import { useUpdateProfileMutation } from "../../redux/features/profile/profileApi";
 import { useAppSelector } from "../../redux/hooks";
 import { selectCurrentUser } from "../../redux/features/auth/authSlice";
+import { useUpdateAdminMutation } from "../../redux/features/user/userApi";
 
 const ProfilePage = () => {
   const [previewImg, setPreviewImg] = useState(null); // For showing preview
   const [imageFile, setImageFile] = useState(null);   // For uploading
-const [updateProfile]  = useUpdateProfileMutation();
+const [updateAdmin]  = useUpdateAdminMutation()
 const user = useAppSelector(selectCurrentUser)
 console.log("user",user);
-  const onFinish = (values) => {
-    const formData = new FormData();
-    formData.append("name", values.name);
+  const onFinish =async (values) => {
 
-    if (imageFile) {
-      formData.append("image", imageFile); // Append image file
+    console.log("values:", values);
+const id= user?.id
+
+ try {
+   
+     const res = await updateAdmin({id,data:values}).unwrap();
+      message.success(res.message);
+  
+      closeCreate();
+ 
+    } catch (e) {
+      message.error(e?.data?.message);
     }
-console.log("imageFile:", imageFile);
 
 
-  };  
+
+
+
+    }
+
+
+  
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -50,12 +64,13 @@ console.log("imageFile:", imageFile);
           <div className="relative text-center items-center justify-center flex">
             <div>
               <img
-                src={previewImg || profile}
+                src={"https://cdn-icons-png.flaticon.com/512/3607/3607444.png"}
+                // src={previewImg || profile}
                 alt="Profile"
                 className="w-36 h-36 object-cover rounded-full"
               />
             </div>
-            <div className="absolute top-20 left-[224px]">
+            {/* <div className="absolute top-20 left-[224px]">
               <div className="bg-[#35BEBD] w-12 h-12 rounded-full relative">
                 <label
                   htmlFor="fileInput"
@@ -75,11 +90,11 @@ console.log("imageFile:", imageFile);
                   className="hidden"
                 />
               </div>
-            </div>
+            </div> */}
           </div>
-          <p className="text-[#35BEBD] text-center font-title my-3">
+          {/* <p className="text-[#35BEBD] text-center font-title my-3">
             Edit Photo
-          </p>
+          </p> */}
           <Link to={"/changePass"}>
             <p className="text-[#313131] text-center font-title my-3 underline text-lg">
               Change Password
@@ -97,7 +112,7 @@ console.log("imageFile:", imageFile);
           {/* Name Input */}
           <div className="mt-3">
             <Form.Item
-              name="name"
+              name="fullName"
               rules={[{ required: true, message: "Please input your Name!" }]}
             >
               <div>
