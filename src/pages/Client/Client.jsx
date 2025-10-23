@@ -7,7 +7,8 @@ import { useAllUserQuery } from "../../redux/features/user/userApi";
 const Client = () => {
   const [searchTerm, setSearchTerm] = useState(""); 
     const [page, setPage] = useState(1);
-const {data:alluser}=useAllUserQuery({searchTerm,page})
+    const role = "client";
+const {data:alluser}=useAllUserQuery({searchTerm,page,role})
 console.log("all user",alluser?.data);
   const meta = alluser?.meta;
   const limit = meta?.limit;
@@ -17,31 +18,14 @@ console.log("all user",alluser?.data);
   const onPageChange = (page) => {
     setPage(page);
   };
-  const clients = [
-    { id: 1, name: "John Doe", email: "john.doe@example.com", country: "USA" },
-    { id: 2, name: "Jane Smith", email: "jane.smith@example.com", country: "Canada" },
-    { id: 3, name: "Emily Johnson", email: "emily.johnson@example.com", country: "UK" },
-    { id: 4, name: "Michael Brown", email: "michael.brown@example.com", country: "Australia" },
-    { id: 5, name: "Sarah Davis", email: "sarah.davis@example.com", country: "Germany" },
-    { id: 6, name: "David Wilson", email: "david.wilson@example.com", country: "France" },
-    { id: 7, name: "Jessica Lee", email: "jessica.lee@example.com", country: "South Korea" },
-    { id: 8, name: "Daniel Martinez", email: "daniel.martinez@example.com", country: "Mexico" },
-    { id: 9, name: "Sophia Taylor", email: "sophia.taylor@example.com", country: "Italy" },
-    { id: 10, name: "James Harris", email: "james.harris@example.com", country: "Spain" },
-  ];
-  
+
 
   // Function to handle the change in the search input
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value.toLowerCase()); // Update the searchTerm state
   };
 
-  // Filter the clients based on the search term (name, email, or country)
-  const filteredClients = clients.filter((client) =>
-    client.name.toLowerCase().includes(searchTerm) ||
-    client.email.toLowerCase().includes(searchTerm) ||
-    client.country.toLowerCase().includes(searchTerm)
-  );
+
 
   return (
     <div>

@@ -27,6 +27,7 @@ import MakeVendor from "../pages/MakeVendor/MakeVendor";
 
 import ProfilePage from "../pages/Profile/ProfilePage";
 import ChangePass from "../pages/Profile/ChangePass";
+import PrivetRoutes from "./PrivetRoutes";
 
   
   const router = createBrowserRouter([
@@ -48,7 +49,7 @@ import ChangePass from "../pages/Profile/ChangePass";
     },
     {
         path: "/",
-        element: <Main></Main>,
+        element: <PrivetRoutes><Main/> </PrivetRoutes>,
         // errorElement: <ErrorPage></ErrorPage>,
         children: [
           {

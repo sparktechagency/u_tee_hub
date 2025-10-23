@@ -3,10 +3,10 @@ import { baseApi } from "../../api/baseApi";
 const userApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     allUser: builder.query({
-      query: ({ searchTerm, page }) => ({
-        url: `/user/retrieve/all?search=${searchTerm}`,
+      query: ({ searchTerm, page,role }) => ({
+        url: `/user/retrieve/all?search=${searchTerm}&profile.role=${role}&page=${page}`,
         method: "GET",
-        params: { page },
+        // params: { page },
       }),
     }),
     allAdmin: builder.query({

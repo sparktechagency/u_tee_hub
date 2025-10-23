@@ -14,7 +14,9 @@ const statusColors = {
 const Vendor = () => {
   const [page, setPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState("");
-  const { data: alluser, isLoading, isError ,refetch} = useAllUserQuery({ searchTerm, page });
+  const role = "vendor";
+
+  const { data: alluser, isLoading, isError ,refetch} = useAllUserQuery({ searchTerm, page,role });
   const [updateProfile] = useUpdateProfileMutation();
 
   const vendors = alluser?.data || [];
