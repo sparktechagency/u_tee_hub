@@ -85,12 +85,13 @@ const Vendor = () => {
   };
 
   const columns = [
-    {
-      title: "S.ID",
-      dataIndex: "_id",
-      key: "_id",
-      render: (id) => `#${id.slice(-5)}`,
-    },
+{
+  title: "ID",
+  dataIndex: "_id",
+  key: "_id",
+  render: (_, record, index) => index + 1, // Index is 0-based, so we add 1 to start the serial number from 1
+},
+
     {
       title: "Name",
       dataIndex: "profile",

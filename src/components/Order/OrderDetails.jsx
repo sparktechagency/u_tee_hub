@@ -28,7 +28,7 @@ const formattedDate = `${day}/${month}/${year}`;
         <div className="grid md:grid-cols-3 gap-8">
           {/* Left column - Order information */}
           <div className="space-y-4">
-            <div className="grid grid-cols-2 gap-2">
+            {/* <div className="grid grid-cols-2 gap-2">
               <p className="text-gray-500">Product ID</p>
               <p className="text-gray-700">--------</p>
             </div>
@@ -41,17 +41,17 @@ const formattedDate = `${day}/${month}/${year}`;
             <div className="grid grid-cols-2 gap-2">
               <p className="text-gray-500">Location</p>
               <p className="text-gray-700">------</p>
-            </div>
+            </div> */}
   
             <div className="grid grid-cols-2 gap-2">
               <p className="text-gray-500">Price</p>
               <p className="text-gray-700">{currencyFormatter(order?.price)}</p>
             </div>
   
-            <div className="grid grid-cols-2 gap-2">
+            {/* <div className="grid grid-cols-2 gap-2">
               <p className="text-gray-500">Product category</p>
               <p className="text-gray-700">-------</p>
-            </div>
+            </div> */}
   
             <div className="grid grid-cols-2 gap-2">
               <p className="text-gray-500">Items</p>
@@ -68,10 +68,10 @@ const formattedDate = `${day}/${month}/${year}`;
               <p className="text-gray-700">{order?.status}</p>
             </div>
   
-            <div className="grid grid-cols-2 gap-2">
+            {/* <div className="grid grid-cols-2 gap-2">
               <p className="text-gray-500">Payment Method</p>
               <p className="text-gray-700">--------</p>
-            </div>
+            </div> */}
   
             <div className="grid grid-cols-2 gap-2">
               <p className="text-gray-500">Payment Status</p>
@@ -96,10 +96,7 @@ const formattedDate = `${day}/${month}/${year}`;
             <h2 className="text-xl font-medium text-gray-700 mb-4">Shipping Details</h2>
   
             <div className="space-y-4">
-              <div className="grid grid-cols-2 gap-2">
-                <p className="text-gray-500">Shipping ID</p>
-                <p className="text-gray-700">--------</p>
-              </div>
+              
   
               <div className="grid grid-cols-2 gap-2">
                 <p className="text-gray-500">Shipped Date</p>

@@ -107,6 +107,17 @@ dispatch(logout())
             <p className="text-lg font-semibold">Order</p>
           </li>
         </Link>
+        {/* Vendor Order */}
+        <Link to="/vendorOrder">
+          <li
+            className={`flex items-center gap-2 mt-5 cursor-pointer transition-all duration-300 ease-in-out ${
+              isActive("/vendorOrder") ? "bg-[#00c0b5] text-white px-3 py-3 rounded-2xl" : ""
+            }`}
+          >
+            <LuSquareMenu className="w-5 h-5" />
+            <p className="text-lg font-semibold">Vendor Order</p>
+          </li>
+        </Link>
 
         {/* Make Vendor */}
         <Link to="/makeVendor">

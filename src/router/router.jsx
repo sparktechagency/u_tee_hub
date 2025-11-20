@@ -28,6 +28,7 @@ import MakeVendor from "../pages/MakeVendor/MakeVendor";
 import ProfilePage from "../pages/Profile/ProfilePage";
 import ChangePass from "../pages/Profile/ChangePass";
 import PrivetRoutes from "./PrivetRoutes";
+import VendorOrderPage from "../pages/VendorOrderPage/VendorOrderPage";
 
   
   const router = createBrowserRouter([
@@ -91,6 +92,11 @@ import PrivetRoutes from "./PrivetRoutes";
           {
             path: "/order",
             element: <OrderPage/>,
+          },
+       
+          {
+            path: "/vendorOrder",
+            element: <VendorOrderPage/>,
           },
           {
             path: "/setting/aboutUs",
