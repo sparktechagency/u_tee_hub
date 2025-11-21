@@ -2,13 +2,14 @@ import { Input } from "antd";
 import { useState } from "react";
 import { IoSearch } from "react-icons/io5";
 import OrderTable from "../../components/Order/OrderTable";
-import { useGetAllOrdersQuery } from "../../redux/features/order/orderApi";
+import { useGetAllGeneralOrdersQuery } from "../../redux/features/order/orderApi";
+import GeneralOrderTable from "./GeneralOrderTable";
 
 
 const VendorOrderPage = () => {
    const [searchText, setSearchText] = useState("");
    console.log("SearchText---->",searchText);
-const { data: getAllOrder } = useGetAllOrdersQuery(
+const { data: getAllOrder } = useGetAllGeneralOrdersQuery(
   searchText ? { search: searchText } : undefined
 );
 console.log('all orer --------->',getAllOrder?.data?.data)
@@ -80,7 +81,7 @@ console.log('all orer --------->',getAllOrder?.data?.data)
     </div>
 
     {/* Table with filtered data */}
-    <OrderTable order={filteredOrders} />
+    <GeneralOrderTable order={filteredOrders} />
   </div>
   );
 };

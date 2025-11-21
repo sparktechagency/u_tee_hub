@@ -29,6 +29,7 @@ import ProfilePage from "../pages/Profile/ProfilePage";
 import ChangePass from "../pages/Profile/ChangePass";
 import PrivetRoutes from "./PrivetRoutes";
 import VendorOrderPage from "../pages/VendorOrderPage/VendorOrderPage";
+import GeneralOrderDetails from "../pages/VendorOrderPage/GeneralOrderDetails";
 
   
   const router = createBrowserRouter([
@@ -131,6 +132,11 @@ import VendorOrderPage from "../pages/VendorOrderPage/VendorOrderPage";
             // Dynamic route for client details
             path: "/order/:id",
             element: <OrderDetails />, 
+          },
+          {
+            // Dynamic route for client details
+            path: "/gorder/:id",
+            element: <GeneralOrderDetails />, 
           },
           {
             // Dynamic route for client details
