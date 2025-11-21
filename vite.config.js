@@ -23,6 +23,6 @@ export default defineConfig({
         }
       }
     },
-    chunkSizeWarningLimit: 1000 // Increase limit if needed
+    chunkSizeWarningLimit: 1600 // Increase limit if needed
   }
 })
