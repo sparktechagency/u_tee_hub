@@ -16,13 +16,13 @@ export default defineConfig({
         manualChunks: {
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
           'redux-vendor': ['@reduxjs/toolkit', 'react-redux', 'redux-persist'],
-          'ui-vendor': ['antd', '@ant-design/icons'],
+          'ui-vendor': ['antd'], 
           'chart-vendor': ['apexcharts', 'react-apexcharts', 'recharts'],
           'editor-vendor': ['react-quill'],
           'icons-vendor': ['react-icons'],
         }
       }
     },
-    chunkSizeWarningLimit: 1600 // Increase limit if needed
+    chunkSizeWarningLimit: 1600
   }
 })
