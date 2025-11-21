@@ -96,7 +96,7 @@ dispatch(logout())
           </li>
         </Link>
 
-        {/* Order */}
+        {/* custom Order */}
         <Link to="/order">
           <li
             className={`flex items-center gap-2 mt-5 cursor-pointer transition-all duration-300 ease-in-out ${
@@ -104,18 +104,18 @@ dispatch(logout())
             }`}
           >
             <LuSquareMenu className="w-5 h-5" />
-            <p className="text-lg font-semibold">Order</p>
+            <p className="text-lg font-semibold">Custom Order</p>
           </li>
         </Link>
-        {/* Vendor Order */}
-        <Link to="/vendorOrder">
+        {/* general Order */}
+        <Link to="/generalOrder">
           <li
             className={`flex items-center gap-2 mt-5 cursor-pointer transition-all duration-300 ease-in-out ${
-              isActive("/vendorOrder") ? "bg-[#00c0b5] text-white px-3 py-3 rounded-2xl" : ""
+              isActive("/generalOrder") ? "bg-[#00c0b5] text-white px-3 py-3 rounded-2xl" : ""
             }`}
           >
             <LuSquareMenu className="w-5 h-5" />
-            <p className="text-lg font-semibold">Vendor Order</p>
+            <p className="text-lg font-semibold">General Order</p>
           </li>
         </Link>
 

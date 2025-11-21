@@ -95,7 +95,7 @@ import VendorOrderPage from "../pages/VendorOrderPage/VendorOrderPage";
           },
        
           {
-            path: "/vendorOrder",
+            path: "/generalOrder",
             element: <VendorOrderPage/>,
           },
           {

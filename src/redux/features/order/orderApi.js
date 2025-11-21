@@ -31,6 +31,36 @@ const orderApi = baseApi.injectEndpoints({
         };
       },
     }),
+  getAllGeneralOrders: builder.query({
+      query: (args) => {
+        console.log('Arguments from orderApi----->',args);
+        const params = new URLSearchParams();
+    
+        if (args && typeof args === "object") { 
+          Object.entries(args).forEach(([key, value]) => {
+            if (value !== undefined && value !== null) {
+              params.append(key, value.toString());
+            }
+          });
+        }
+    
+        return {
+          url: "/general-order/retrieve",
+          method: "GET",
+          params: params,
+        };
+      },
+      providesTags: ["orders"],
+      
+
+      transformResponse: (response) => {
+        return {
+          data: response?.data,
+        };
+      },
+    }),
+
+
      singleOrder: builder.query({
       query: (id) => ({
         url:`/order/retrieve/specific/${id}`,
@@ -46,4 +76,4 @@ const orderApi = baseApi.injectEndpoints({
 
 });
 
-export const { useGetAllOrdersQuery,useSingleOrderQuery} = orderApi;
+export const { useGetAllOrdersQuery,useSingleOrderQuery,useGetAllGeneralOrdersQuery} = orderApi;
