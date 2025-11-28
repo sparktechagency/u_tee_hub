@@ -20,6 +20,6 @@ export default defineConfig({
       }
     },
     // Warning limit বাড়াও
-    chunkSizeWarningLimit: 2000,
+    chunkSizeWarningLimit: 3000,
   }
 })
