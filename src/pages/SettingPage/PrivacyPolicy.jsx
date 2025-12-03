@@ -1,77 +1,79 @@
 import { useEffect, useState } from "react";
+import { SlArrowLeft } from "react-icons/sl";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import { toast } from "react-toastify";
-import { usePrivacyPolicyMutation } from "../../redux/features/others/othersApi";
+
 import { message } from "antd";
+import { useGetPrivacyPolicyQuery, usePrivacyPolicyMutation } from "../../redux/features/others/othersApi";
 
 function PrivacyPolicy() {
-    const [content, setContent] = useState("");
- const [privacyPolicy]=usePrivacyPolicyMutation();
-    // Load saved content from localStorage when the page loads
-    useEffect(() => {
-      const savedContent = localStorage.getItem("privacyPolicyContent");
-      if (savedContent) {
-        setContent(savedContent);
-      } else {
-        // default content if nothing is saved
-        setContent(`
-          <h2>1. Introduction</h2>
-          <ul>
-            <li>Explain that the app values user privacy and is committed to protecting personal information.</li>
-            <li>Mention the types of data collected (e.g., personal information, transaction data, usage data).</li>
-          </ul>
-  
-          <h2>2. Information We Collects</h2>
-          <ul>
-            <li>Personal Information: Names, email addresses, phone numbers, etc.</li>
-            <li>Payment Information: Credit/debit card details (if applicable).</li>
-            <li>Usage Data: How users interact with the app, device details, IP addresses.</li>
-            <li>Cookies and Tracking Technologies: Information about the cookies or other tracking methods used.</li>
-          </ul>
-  `);
-      }
-    }, []);
-  
-    // Save content to localStorage whenever it changes
-    const handleSave = async() => {
-      localStorage.setItem("privacyPolicyContent", content);
-     try{
-const res = await privacyPolicy(content);
-if(res?.data){
-  message.success(res?.data?.message)
-}else{
-  message.error("somthing went wrong,try again")
-}
-console.log("response about us--->",res);
-  }catch(err){
-message.error(err?.error)
-  }
+  const { data: privacy, refetch } = useGetPrivacyPolicyQuery(undefined);
+  const privacyData = privacy?.data?.description;
+  console.log("privacy data from backend-->", privacyData);
+  const [content, setContent] = useState("");
+  const [addPrivacy] = usePrivacyPolicyMutation();
+  // Load saved content from localStorage when the page loads
+  useEffect(() => {
+    const savedContent = localStorage.getItem("privacyPolicyContent");
+    if (savedContent) {
+      setContent(savedContent);
+    }
+    // else{
+    //   setContent(privacyData)
+    // }
+  }, []);
+
+  // Save content to localStorage whenever it changes
+  const handleSave = async () => {
+    localStorage.setItem("privacyPolicyContent", content);
+    const data = {
+      privacyPolicy: content,
     };
-  
-    return (
-      <div className="p-5 text-black font-title bg-white">
-        <h1 className="text-start text-3xl font-bold mb-5 text-[#35BEBD]">Privacy Policy</h1>
-  
-        <div className=" rounded shadow p-5 h-full">
-          <ReactQuill
-            style={{ padding: "10px" }}
-            theme="snow"
-            value={content}
-            onChange={setContent}
-          />
-        </div>
-  
-        <div className="text-center py-5 ">
-          <button
-            onClick={handleSave}
-            className="bg-[#00c0b5] text-white font-semibold px-2 py-2 rounded transition duration-200"
-          >
-            Save Changes
-          </button>
-        </div>
+
+    // message.success("Privacy Policy Saved Successfully!");
+    try {
+      const res = await addPrivacy(data).unwrap();
+      console.log("privacy content response ---->", res);
+      if (res?.status === "success") {
+        message.success(res?.message);
+        refetch();
+      } else {
+        message.error(res?.error);
+      }
+    } catch (error) {
+      message.error(res?.data?.error);
+    }
+  };
+
+  return (
+    <div className="p-5 text-black font-title bg-white">
+      <div className="flex  items-center gap-5 my-3">
+        <SlArrowLeft className="w-5 h-5 text-right text-[#3564d3]" />
+        <p className="text-[#3564d3] font-title text-3xl font-bold">
+          Privacy Policy
+        </p>
       </div>
-    );
+
+      <div className=" rounded shadow p-5 h-full">
+        <ReactQuill
+          style={{ padding: "10px" }}
+          theme="snow"
+          value={content}
+          onChange={setContent}
+        />
+      </div>
+
+      <div className="text-center py-5 ">
+        <button
+          onClick={handleSave}
+          className="bg-[#3564d3] text-white font-semibold px-2 py-2 rounded transition duration-200"
+        >
+          Save Changes
+        </button>
+      </div>
+    </div>
+  );
 }
 
 export default PrivacyPolicy;
