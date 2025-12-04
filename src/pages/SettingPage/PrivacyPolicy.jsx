@@ -9,10 +9,17 @@ import { useGetPrivacyPolicyQuery, usePrivacyPolicyMutation } from "../../redux/
 
 function PrivacyPolicy() {
   const { data: privacy, refetch } = useGetPrivacyPolicyQuery(undefined);
-  const privacyData = privacy?.data?.description;
-  console.log("privacy data from backend-->", privacyData);
+  // const privacyData = privacy?.data?.description;
+  // console.log("privacy data from backend-->", privacyData);
   const [content, setContent] = useState("");
   const [addPrivacy] = usePrivacyPolicyMutation();
+
+  const privacyPolicyData = privacy?.data?.privacyPolicy;
+  console.log("privacy policy----->",privacyPolicyData);
+  if(privacyPolicyData){
+
+    localStorage.setItem("privacyPolicyContent", privacyPolicyData);
+  }
   // Load saved content from localStorage when the page loads
   useEffect(() => {
     const savedContent = localStorage.getItem("privacyPolicyContent");

@@ -7,12 +7,16 @@ import { message } from "antd";
 function TermsCondition() {
   const [content, setContent] = useState("");
   const [termsPolicy] = useTermsPolicyMutation();
-  const { data: terms, error, isLoading } = useGetTermsQuery(); // Fetch the existing terms policy
+  const { data: terms, error, isLoading } = useGetTermsQuery();
+  console.log("terms--->",terms);
+  if(terms?.data?.termsCondition){
 
+    localStorage.setItem("TermsPolicyContent", terms?.data?.termsCondition); 
+  }
   // Load saved content from localStorage or fetch from the backend when the page loads
   useEffect(() => {
-    if (terms?.data?.termsPolicy) {
-      setContent(terms.data.termsPolicy); // Update with fetched data if available
+    if (terms?.data?.termsCondition) {
+      setContent(terms.data.termsCondition); // Update with fetched data if available
     } else {
       const savedContent = localStorage.getItem("TermsPolicyContent");
       if (savedContent) {
@@ -23,7 +27,7 @@ function TermsCondition() {
 
   // Save content to localStorage and send to the backend when Save Changes is clicked
   const handleSave = async () => {
-    localStorage.setItem("TermsPolicyContent", content); // Save content to localStorage
+    localStorage.setItem("TermsPolicyContent", content); 
     try {
        const data = {
       termsCondition: content,
