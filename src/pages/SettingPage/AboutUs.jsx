@@ -7,7 +7,12 @@ import { message } from "antd";
 function AboutUs() {
   const [aboutUs, { isLoading }] = useAboutUsMutation();
   const { data: aboutUsData, isLoading: isFetching, refetch } = useGetAboutUsQuery(undefined);
-  console.log(aboutUsData);
+  console.log("about us data----->",aboutUsData);
+  if(aboutUsData?.data?.description){
+
+    localStorage.setItem("aboutUsContent", aboutUsData.data.description);
+  }
+
   const [content, setContent] = useState("");
 
   useEffect(() => {
