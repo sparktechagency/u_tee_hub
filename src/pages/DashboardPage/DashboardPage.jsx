@@ -32,7 +32,7 @@ function DashboardPage() {
           </p>
         </div>
         <div>
-          <div className="relative w-full sm:w-[300px] ">
+          {/* <div className="relative w-full sm:w-[300px] ">
             <Input
               type="text"
               placeholder="Search anything here..."
@@ -41,7 +41,7 @@ function DashboardPage() {
             <span className=" text-gray-500 absolute top-0 right-0 h-full px-5 flex items-center justify-center  cursor-pointer">
               <IoSearch className="text-[1.3rem]" />
             </span>
-          </div>
+          </div> */}
         </div>
       </div>
       {/* main content */}
