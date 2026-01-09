@@ -81,7 +81,7 @@ const formattedDate = `${day}/${month}/${year}`;
   
           {/* Middle column - Product image */}
           <div className="flex justify-center">
-            <div className="border-2 border-dashed border-gray-300 rounded-md p-2 w-fit h-[150px]">
+            <div className=" border-gray-300 rounded-md p-2 w-fit h-[150px]">
               <img
                 src={order?.designFiles[0]}
                 alt="Product Image"
