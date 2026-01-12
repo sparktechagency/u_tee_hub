@@ -3,12 +3,17 @@ import { ConfigProvider, Form, Input, Modal, Table, message } from "antd";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import {
   useAllAdminQuery,
+
+  useBlockAdminMutation,
+
   useCreateAdminMutation,
   useDeleteAdminMutation,
 } from "../../redux/features/user/userApi";
+import { MdBlock } from "react-icons/md";
 
 const MakeVendor = () => {
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [isBlockOpen, setIsBlockOpen] = useState(false);
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [selectedAdmin, setSelectedAdmin] = useState(null);
   const [page, setPage] = useState(1);
@@ -23,6 +28,8 @@ const MakeVendor = () => {
   // mutations
   const [createAdmin, { isLoading: isCreating }] = useCreateAdminMutation();
   const [deleteAdmin, { isLoading: isDeleting }] = useDeleteAdminMutation();
+  const [blockAdmin, { isLoading: isBlocking }] = useBlockAdminMutation();
+
 
   const admin = allAdmin?.data ?? [];
   const meta = allAdmin?.meta;
@@ -43,6 +50,14 @@ const MakeVendor = () => {
   const openDelete = (record) => {
     setSelectedAdmin(record);
     setIsDeleteOpen(true);
+  };
+  const openBlock = (record) => {
+    setSelectedAdmin(record);
+    setIsBlockOpen(true);
+  };
+  const closeBlock = () => {
+    setSelectedAdmin(null);
+    setIsBlockOpen(false);
   };
   const closeDelete = () => {
     setSelectedAdmin(null);
@@ -90,6 +105,29 @@ const MakeVendor = () => {
       message.error(e?.data?.message || "Failed to delete admin");
     }
   };
+  // delete handler
+  const handleConfirmBlock = async () => {
+    if (!selectedAdmin) return;
+    const id = selectedAdmin.id ?? selectedAdmin._id; // support id/_id
+    try {
+      // If your mutation expects an object, use: await deleteAdmin({ id }).unwrap();
+      const res =await blockAdmin(id).unwrap();
+      if(res?.status==='success'){
+
+        message.success(res.message);
+      }else{
+        message.error(res.error);
+      }
+      closeBlock();
+
+ 
+        refetch();
+  
+    } catch (e) {
+      // console.log(e);
+      message.error(e?.data?.error || "Failed to block admin");
+    }
+  };
 
   // columns (with index)
   const columns = useMemo(
@@ -121,13 +159,24 @@ const MakeVendor = () => {
         key: "action",
         width: 100,
         render: (_, record) => (
-          <button
+      <div>
+            <button
+            onClick={() => openBlock(record)}
+            disabled={isBlocking}
+            title="Block"
+          >
+  
+            <MdBlock className="text-[#15555e] w-5 h-5 mr-1" />
+          </button>
+            <button
             onClick={() => openDelete(record)}
             disabled={isDeleting}
             title="Delete"
           >
             <RiDeleteBin6Line className="text-[#FF2020] w-5 h-5" />
           </button>
+      
+      </div>
         ),
       },
     ],
@@ -250,6 +299,31 @@ const MakeVendor = () => {
           </div>
         </Modal>
 
+        {/* Block modal */}
+        <Modal open={isBlockOpen} centered onCancel={closeBlock} footer={null}>
+          <div className="flex flex-col justify-center items-center py-10">
+            <h1 className="text-3xl text-center text-[#00c0b5]">Are you sure?</h1>
+            <p className="text-xl text-center mt-5">
+              Block <strong>{selectedAdmin?.fullName}</strong> this admin?
+            </p>
+            <div className="text-center py-5 w-full flex justify-center gap-3">
+              <button
+                onClick={closeBlock}
+                className="bg-gray-200 text-gray-900 font-semibold w-1/3 py-3 px-5 rounded-lg"
+                disabled={isDeleting}
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleConfirmBlock}
+                className="bg-[#FF2020] text-white font-semibold w-1/3 py-3 px-5 rounded-lg"
+                disabled={isDeleting}
+              >
+                {isDeleting ? "Blocking…" : "Confirm"}
+              </button>
+            </div>
+          </div>
+        </Modal>
         {/* delete modal */}
         <Modal open={isDeleteOpen} centered onCancel={closeDelete} footer={null}>
           <div className="flex flex-col justify-center items-center py-10">

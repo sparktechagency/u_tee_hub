@@ -56,6 +56,12 @@ const userApi = baseApi.injectEndpoints({
         method: "GET",
       }),
     }),
+    blockAdmin: builder.mutation({
+      query: (id) => ({
+        url: `/admin/block/${id}`,
+        method: "PATCH",
+      }),
+    }),
     singleAdmin: builder.query({
       query: (id) => ({
         url: `/admin/retrive/${id}`,
@@ -74,5 +80,6 @@ export const {
   useCreateAdminMutation,
   useDeleteAdminMutation,
   useUpdateAdminMutation,
-  useSingleAdminQuery
+  useSingleAdminQuery,
+  useBlockAdminMutation
 } = userApi;
