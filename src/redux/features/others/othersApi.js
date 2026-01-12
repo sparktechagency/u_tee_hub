@@ -55,6 +55,12 @@ const othersApi = baseApi.injectEndpoints({
         method: "GET",      
       }),
     }),
+     getDashboardStats: builder.query({
+      query: (year) => ({
+        url:`/admin/dashboard?clientYear=${year}`,
+        method: "GET",      
+      }),
+    }),
 
 
   }),
@@ -64,4 +70,4 @@ const othersApi = baseApi.injectEndpoints({
 
 });
 
-export const { useAboutUsMutation,usePrivacyPolicyMutation,useTermsPolicyMutation,useGetAllFaqQuery,useCreateNewFaqMutation,useGetPrivacyPolicyQuery,useGetTermsQuery,useGetAboutUsQuery } = othersApi;
+export const { useAboutUsMutation,usePrivacyPolicyMutation,useTermsPolicyMutation,useGetAllFaqQuery,useCreateNewFaqMutation,useGetPrivacyPolicyQuery,useGetTermsQuery,useGetAboutUsQuery,useGetDashboardStatsQuery} = othersApi;

@@ -21,11 +21,16 @@ const Vendor = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedVendor, setSelectedVendor] = useState(null);
 
-  const { data: alluser, isLoading, isError, refetch } = useAllUserQuery({ searchTerm, page, role });
+  const {
+    data: alluser,
+    isLoading,
+    isError,
+    refetch,
+  } = useAllUserQuery({ searchTerm, page, role });
   const [updateProfile] = useUpdateProfileMutation();
-  
+
   console.log("user data--->", alluser?.data[0]?.profile?.id?.documents);
-  
+
   const vendors = alluser?.data || [];
   const meta = alluser?.meta;
   const currentPage = Number(page ?? 1);
@@ -50,7 +55,8 @@ const Vendor = () => {
   const getFileType = (url) => {
     if (!url) return "unknown";
     const extension = url.split(".").pop()?.toLowerCase();
-    if (["jpg", "jpeg", "png", "gif", "webp", "bmp"].includes(extension)) return "image";
+    if (["jpg", "jpeg", "png", "gif", "webp", "bmp"].includes(extension))
+      return "image";
     if (["pdf"].includes(extension)) return "pdf";
     return "other";
   };
@@ -61,7 +67,10 @@ const Vendor = () => {
     formData.append("status", newStatus);
 
     try {
-      const res = await updateProfile({ info: formData, id: vendor?._id }).unwrap();
+      const res = await updateProfile({
+        info: formData,
+        id: vendor?._id,
+      }).unwrap();
       console.log("Status update response:", res);
 
       const statusLabel =
@@ -73,11 +82,17 @@ const Vendor = () => {
 
       Swal.fire({
         title: `Are you sure?`,
-        text: `You are about to mark ${vendor?.profile?.id?.name || "this vendor"} as ${statusLabel}.`,
+        text: `You are about to mark ${
+          vendor?.profile?.id?.name || "this vendor"
+        } as ${statusLabel}.`,
         icon: "warning",
         showCancelButton: true,
         confirmButtonColor:
-          newStatus === "active" ? "#35BEBD" : newStatus === "blocked" ? "#DD1A1D" : "#3085d6",
+          newStatus === "active"
+            ? "#35BEBD"
+            : newStatus === "blocked"
+            ? "#DD1A1D"
+            : "#3085d6",
         confirmButtonText:
           newStatus === "active"
             ? "Approve"
@@ -94,7 +109,11 @@ const Vendor = () => {
                 ? "Rejected!"
                 : "Updated!",
             text: `${vendor?.profile?.id?.name || "Vendor"} has been ${
-              newStatus === "active" ? "approved" : newStatus === "blocked" ? "rejected" : "updated"
+              newStatus === "active"
+                ? "approved"
+                : newStatus === "blocked"
+                ? "rejected"
+                : "updated"
             }.`,
             icon: newStatus === "blocked" ? "error" : "success",
           });
@@ -159,9 +178,18 @@ const Vendor = () => {
           onChange={(value) => handleStatusChange(value, record)}
           style={{ width: 130 }}
           options={[
-            { label: <Tag color={statusColors.pending}>Pending</Tag>, value: "pending" },
-            { label: <Tag color={statusColors.active}>Active</Tag>, value: "active" },
-            { label: <Tag color={statusColors.blocked}>Blocked</Tag>, value: "blocked" },
+            {
+              label: <Tag color={statusColors.pending}>Pending</Tag>,
+              value: "pending",
+            },
+            {
+              label: <Tag color={statusColors.active}>Active</Tag>,
+              value: "active",
+            },
+            {
+              label: <Tag color={statusColors.blocked}>Blocked</Tag>,
+              value: "blocked",
+            },
           ]}
         />
       ),
@@ -227,7 +255,9 @@ const Vendor = () => {
     return (
       <div className="flex flex-col items-center justify-center py-10">
         <FaFileAlt className="w-16 h-16 mb-4 text-gray-400" />
-        <p className="text-lg text-gray-600 mb-4">Document Preview Not Available</p>
+        <p className="text-lg text-gray-600 mb-4">
+          Document Preview Not Available
+        </p>
         <a
           href={docUrl}
           target="_blank"
@@ -246,7 +276,9 @@ const Vendor = () => {
     <div>
       {/* Header and Search */}
       <div className="flex justify-between items-center my-3">
-        <p className="text-[#35BEBD] font-title text-3xl font-bold">Vendor Management</p>
+        <p className="text-[#35BEBD] font-title text-3xl font-bold">
+          Vendor Management
+        </p>
         <div className="relative w-full sm:w-[300px]">
           <Input
             type="text"
@@ -317,16 +349,22 @@ const Vendor = () => {
             <div className="bg-gradient-to-r from-[#35BEBD]/10 to-[#35BEBD]/5 rounded-lg p-4 mb-6">
               <div className="flex items-center gap-4">
                 <div className="w-12 h-12 bg-[#35BEBD] rounded-full flex items-center justify-center text-white text-xl font-bold">
-                  {selectedVendor?.profile?.id?.name?.charAt(0)?.toUpperCase() || "V"}
+                  {selectedVendor?.profile?.id?.name
+                    ?.charAt(0)
+                    ?.toUpperCase() || "V"}
                 </div>
                 <div>
                   <h3 className="text-lg font-semibold text-gray-800">
                     {selectedVendor?.profile?.id?.name || "Unknown Vendor"}
                   </h3>
-                  <p className="text-sm text-gray-500">{selectedVendor?.email}</p>
+                  <p className="text-sm text-gray-500">
+                    {selectedVendor?.email}
+                  </p>
                 </div>
                 <div className="ml-auto">
-                  <Tag color={statusColors[selectedVendor?.status] || "default"}>
+                  <Tag
+                    color={statusColors[selectedVendor?.status] || "default"}
+                  >
                     {selectedVendor?.status?.toUpperCase() || "PENDING"}
                   </Tag>
                 </div>
@@ -339,34 +377,38 @@ const Vendor = () => {
                 <FaFileAlt className="text-[#35BEBD]" />
                 Uploaded Documents
               </h4>
-              
+
               {/* If documents is an array */}
               {Array.isArray(selectedVendor?.profile?.id?.documents) ? (
                 <div className="space-y-4">
                   {selectedVendor?.profile?.id?.documents.length > 0 ? (
                     <Image.PreviewGroup>
                       <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                        {selectedVendor?.profile?.id?.documents.map((doc, index) => (
-                          <div key={index} className="relative group">
-                            {getFileType(doc) === "image" ? (
-                              <Image
-                                src={doc}
-                                alt={`Document ${index + 1}`}
-                                className="w-full h-40 object-cover rounded-lg border border-gray-200"
-                              />
-                            ) : (
-                              <a
-                                href={doc}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="flex flex-col items-center justify-center w-full h-40 bg-white rounded-lg border border-gray-200 hover:border-[#35BEBD] transition-colors"
-                              >
-                                <FaFilePdf className="w-12 h-12 text-red-500 mb-2" />
-                                <span className="text-sm text-gray-600">View PDF</span>
-                              </a>
-                            )}
-                          </div>
-                        ))}
+                        {selectedVendor?.profile?.id?.documents.map(
+                          (doc, index) => (
+                            <div key={index} className="relative group">
+                              {getFileType(doc) === "image" ? (
+                                <Image
+                                  src={doc}
+                                  alt={`Document ${index + 1}`}
+                                  className="w-full h-40 object-cover rounded-lg border border-gray-200"
+                                />
+                              ) : (
+                                <a
+                                  href={doc}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="flex flex-col items-center justify-center w-full h-40 bg-white rounded-lg border border-gray-200 hover:border-[#35BEBD] transition-colors"
+                                >
+                                  <FaFilePdf className="w-12 h-12 text-red-500 mb-2" />
+                                  <span className="text-sm text-gray-600">
+                                    View PDF
+                                  </span>
+                                </a>
+                              )}
+                            </div>
+                          )
+                        )}
                       </div>
                     </Image.PreviewGroup>
                   ) : (
