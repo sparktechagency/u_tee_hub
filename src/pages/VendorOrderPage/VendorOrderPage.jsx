@@ -26,20 +26,13 @@ const VendorOrderPage = () => {
 console.log('all orer --------->',getAllOrder?.data?.data)
   // Status options based on backend enum
   const statusOptions = [
-    { value: "offered", label: "Offered" },
-    { value: "rejected", label: "Rejected" },
-    { value: "accepted", label: "Accepted" },
-    { value: "delivery-requested", label: "Delivery Requested" },
-    { value: "delivery-confirmed", label: "Delivery Confirmed" },
-    { value: "revision", label: "Revision" },
+    { value: "pending", label: "pending" },
+    { value: "process", label: "process" },
+    { value: "delivered", label: "delivered" },
+
+    { value: "cancelled", label: "cancelled" },
   ];
 
-  // Delivery type options based on backend enum
-  const deliveryTypeOptions = [
-    { value: "pickup", label: "Pickup" },
-    { value: "courier", label: "Courier" },
-    { value: "pickupAndCourier", label: "Pickup & Courier" },
-  ];
 
 
 
