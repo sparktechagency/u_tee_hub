@@ -1,4 +1,4 @@
-import { Input } from "antd";
+import { Input, Select } from "antd";
 import { useState } from "react";
 import { IoSearch } from "react-icons/io5";
 import OrderTable from "../../components/Order/OrderTable";
@@ -7,81 +7,83 @@ import GeneralOrderTable from "./GeneralOrderTable";
 
 
 const VendorOrderPage = () => {
+      const [page, setPage] = useState(1);
+  const [status, setStatus] = useState(undefined);
    const [searchText, setSearchText] = useState("");
    console.log("SearchText---->",searchText);
-const { data: getAllOrder } = useGetAllGeneralOrdersQuery(
-  searchText ? { search: searchText } : undefined
-);
-console.log('all orer --------->',getAllOrder?.data?.data)
-  const [activeTab, setActiveTab] = useState("allOrder");
+  // Build query params - only include defined values
+  const queryParams = {
+    page,
+    limit: 10,
+    ...(searchText && { search: searchText }),
+    ...(status && { status }),
 
-  const filteredOrders = activeTab === "allOrder"
-    ?getAllOrder?.data?.data
-    : getAllOrder?.data?.data.filter((item) => item.status.toLowerCase() === activeTab);
+  };
+
+  const { data: getAllOrder } = useGetAllGeneralOrdersQuery(
+    Object.keys(queryParams).length > 0 ? queryParams : undefined
+  );
+console.log('all orer --------->',getAllOrder?.data?.data)
+  // Status options based on backend enum
+  const statusOptions = [
+    { value: "offered", label: "Offered" },
+    { value: "rejected", label: "Rejected" },
+    { value: "accepted", label: "Accepted" },
+    { value: "delivery-requested", label: "Delivery Requested" },
+    { value: "delivery-confirmed", label: "Delivery Confirmed" },
+    { value: "revision", label: "Revision" },
+  ];
+
+  // Delivery type options based on backend enum
+  const deliveryTypeOptions = [
+    { value: "pickup", label: "Pickup" },
+    { value: "courier", label: "Courier" },
+    { value: "pickupAndCourier", label: "Pickup & Courier" },
+  ];
+
+
+
+    const meta = getAllOrder?.data?.meta
+     const handlePageChange = (nextPage /*, pageSize */) => {
+    console.log("calling functon........",nextPage);
+    setPage(nextPage); // triggers RTK Query refetch because query args changed
+  }
   return (
     <div>
-    <div className="flex justify-between items-center pt-0 mb-3">
-      {/* Tabs */}
-      <div className="flex justify-start items-center gap-5 text-md md:text-xl font-semibold mb-3">
-        <p
-          onClick={() => setActiveTab("allOrder")}
-          className={`cursor-pointer pb-1 ${
-            activeTab === "allOrder"
-              ? "text-[#00C0B5] border-b-4 border-[#00C0B5] font-title"
-              : "text-[#575757] font-title"
-          }`}
-        >
-          All Order
-        </p>
-        <p
-          onClick={() => setActiveTab("delivery-confirmed")}
-          className={`cursor-pointer pb-1 ${
-            activeTab === "delivery-confirmed"
-              ? "text-[#00C0B5] border-b-4 border-[#00C0B5] font-title"
-              : "text-[#575757] font-title"
-          }`}
-        >
-          Completed
-        </p>
-        <p
-          onClick={() => setActiveTab("pending")}
-          className={`cursor-pointer pb-1 ${
-            activeTab === "pending"
-              ? "text-[#00C0B5] border-b-4 border-[#00C0B5] font-title"
-              : "text-[#575757] font-title"
-          }`}
-        >
-          Pending
-        </p>
-        <p
-          onClick={() => setActiveTab("cancelled")}
-          className={`cursor-pointer pb-1 ${
-            activeTab === "cancelled"
-              ? "text-[#00C0B5] border-b-4 border-[#00C0B5] font-title"
-              : "text-[#575757] font-title"
-          }`}
-        >
-          Rejected
-        </p>
-      </div>
+      <div className="flex flex-wrap justify-between items-center pt-0 mb-3 gap-3">
+        {/* Filter Dropdowns */}
+        <div className="flex justify-start items-center gap-4 text-black">
+          {/* Status Filter */}
+          <Select
+            value={status}
+            onChange={(value) => setStatus(value)}
+            options={statusOptions}
+            placeholder="Select Status"
+            className="w-[180px]"
+            allowClear
+            style={{ height: "42px",color: "black" }}
+          />
 
-      {/* Search Input */}
-      <div className="relative w-full sm:w-[300px]">
-        <Input
-          type="text"
+     
+        </div>
+
+        {/* Search Input */}
+        <div className="relative w-full sm:w-[300px]">
+          <Input
+            type="text"
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
-          placeholder="Search anything here..."
-          className="border border-[#e5eaf2] py-3 outline-none w-full rounded-full px-3"
-        />
-        <span className="text-gray-500 absolute top-0 right-0 h-full px-5 flex items-center justify-center cursor-pointer">
-          <IoSearch className="text-[1.3rem]" />
-        </span>
+            placeholder="Search anything here..."
+            className="border border-[#e5eaf2] py-3 outline-none w-full rounded-full px-3"
+          />
+          <span className="text-gray-500 absolute top-0 right-0 h-full px-5 flex items-center justify-center cursor-pointer">
+            <IoSearch className="text-[1.3rem]" />
+          </span>
+        </div>
       </div>
-    </div>
 
     {/* Table with filtered data */}
-    <GeneralOrderTable order={filteredOrders} />
+    <GeneralOrderTable order={getAllOrder?.data?.data} handlePageChange={handlePageChange} meta={meta} page={page} />
   </div>
   );
 };

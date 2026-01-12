@@ -5,16 +5,18 @@ import { RiDeleteBin6Line} from "react-icons/ri";
 import { Link } from "react-router-dom";
 
 
-const GeneralOrderTable = ({order}) => {
+const GeneralOrderTable = ({order,handlePageChange,meta,page}) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-      const [page, setPage] = useState(1);
+
     const showModal = () => {
       setIsModalOpen(true);
     };
     const handleCancel = () => {
       setIsModalOpen(false);
     };
-
+  const currentPage = Number(page ?? 1);
+  const pageSize = Number(meta?.limit ?? 10);
+  const total = Number(meta?.total ?? 0);
       const columns = [   
       {
   title: "ID",
@@ -108,7 +110,23 @@ const GeneralOrderTable = ({order}) => {
         <Table
           dataSource={order}
           columns={columns}
-          pagination={{ pageSize: 10 }}
+          pagination={{
+            current: currentPage,
+            pageSize,
+            total,
+            showSizeChanger: false,
+          }}
+          // IMPORTANT: handle page change here (Table's onChange)
+          onChange={(pagination) => {
+            const next = pagination?.current ?? 1;
+            const size = pagination?.pageSize ?? pageSize;
+            if (
+              typeof handlePageChange === "function" &&
+              (next !== currentPage || size !== pageSize)
+            ) {
+              handlePageChange(next, size);
+            }
+          }}
           scroll={{ x: "max-content" }}
           className="text-center"
         />
