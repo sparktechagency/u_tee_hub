@@ -1,10 +1,11 @@
-import { ConfigProvider, Input, Modal, Select, Table, Tag, Image } from "antd";
+import { ConfigProvider, Input, Modal, Select, Table, Tag, Image, message } from "antd";
 import { IoEyeSharp, IoSearch } from "react-icons/io5";
 import { useState } from "react";
 import { useAllUserQuery } from "../../redux/features/user/userApi";
 import Swal from "sweetalert2";
 import { useUpdateProfileMutation } from "../../redux/features/profile/profileApi";
 import { FaFileAlt, FaFilePdf, FaFileImage, FaDownload } from "react-icons/fa";
+import { toast } from "react-toastify";
 
 const statusColors = {
   pending: "gold",
@@ -12,14 +13,13 @@ const statusColors = {
   blocked: "red",
 };
 
-// --- সরাসরি ডাউনলোডের জন্য উন্নত ফাংশন ---
+// --- সরাসরি ডাউনলোডের শক্তিশালী ফাংশন ---
 const downloadFile = async (url, filename) => {
   if (!url) return;
 
   try {
     const response = await fetch(url, {
       method: "GET",
-      mode: "cors", // CORS মোড এনাবল করা হয়েছে
       headers: {},
     });
 
@@ -30,21 +30,17 @@ const downloadFile = async (url, filename) => {
 
     const link = document.createElement("a");
     link.href = blobUrl;
-    link.download = filename || "download"; // এখানে ফাইলনেম সেট করা হচ্ছে
+    link.download = filename; 
     document.body.appendChild(link);
     link.click();
-    document.body.removeChild(link);
 
-    // মেমোরি ফ্রি করা
-    setTimeout(() => window.URL.revokeObjectURL(blobUrl), 100);
+    // ক্লিনআপ
+    document.body.removeChild(link);
+    window.URL.revokeObjectURL(blobUrl);
   } catch (err) {
-    console.error("Download failed:", err);
-    // যদি fetch ফেইল করে, তবে বাধ্য হয়ে নতুন ট্যাবে ওপেন হবে
-    const link = document.createElement("a");
-    link.href = url;
-    link.target = "_blank";
-    link.download = filename || "download";
-    link.click();
+    console.error("Download failed, opening in new tab:", err);
+    // যদি CORS এর কারণে ডাউনলোড ব্লক হয়, তবে ফাইলটি নতুন ট্যাবে ওপেন হবে
+    window.open(url, "_blank");
   }
 };
 
@@ -85,11 +81,14 @@ const Vendor = () => {
     const formData = new FormData();
     formData.append("status", newStatus);
     try {
-      await updateProfile({ info: formData, id: vendor?._id }).unwrap();
+    const res =   await updateProfile({ info: formData, id: vendor?._id }).unwrap();
+ 
       Swal.fire("Success", `Vendor marked as ${newStatus}`, "success");
       refetch();
     } catch (error) {
-      Swal.fire("Error", "Update failed", "error");
+      // Swal.fire("Error", "Update failed", "error");
+
+      toast.error(error?.data?.error)
     }
   };
 
@@ -124,10 +123,13 @@ const Vendor = () => {
     },
   ];
 
-  // --- ডকুমেন্ট রেন্ডারিং এবং ডাউনলোড বাটন ---
+  // --- সিঙ্গেল ডকুমেন্ট রেন্ডার এবং ডাউনলোড ---
   const renderSingleDoc = (docUrl, index = 0) => {
     const fileType = getFileType(docUrl);
-    const fileName = `${selectedVendor?.profile?.id?.name || "vendor"}-doc-${index + 1}`;
+    // ফাইলের নাম তৈরি করা (ভেন্ডর নেম + ইনডেক্স)
+    const vendorName = selectedVendor?.profile?.id?.name || "vendor";
+    const ext = docUrl.split('.').pop()?.split(/[?#]/)[0] || "file";
+    const fileName = `${vendorName.replace(/\s+/g, '-').toLowerCase()}-document-${index + 1}.${ext}`;
 
     return (
       <div className="flex flex-col items-center bg-white p-3 rounded-lg border border-gray-100 shadow-sm">
@@ -141,7 +143,10 @@ const Vendor = () => {
         )}
 
         <button
-          onClick={() => downloadFile(docUrl, fileName)}
+          onClick={(e) => {
+            e.preventDefault();
+            downloadFile(docUrl, fileName);
+          }}
           className="mt-3 w-full flex items-center justify-center gap-2 bg-[#35BEBD] text-white py-2 rounded hover:bg-[#2a9a99] transition-colors text-sm font-medium"
         >
           <FaDownload size={14} /> Download
