@@ -13,7 +13,7 @@ const statusColors = {
   blocked: "red",
 };
 
-// --- সরাসরি ডাউনলোডের শক্তিশালী ফাংশন ---
+// --- down fun
 const downloadFile = async (url, filename) => {
   if (!url) return;
 
@@ -34,12 +34,12 @@ const downloadFile = async (url, filename) => {
     document.body.appendChild(link);
     link.click();
 
-    // ক্লিনআপ
+
     document.body.removeChild(link);
     window.URL.revokeObjectURL(blobUrl);
   } catch (err) {
     console.error("Download failed, opening in new tab:", err);
-    // যদি CORS এর কারণে ডাউনলোড ব্লক হয়, তবে ফাইলটি নতুন ট্যাবে ওপেন হবে
+
     window.open(url, "_blank");
   }
 };
@@ -123,10 +123,10 @@ const Vendor = () => {
     },
   ];
 
-  // --- সিঙ্গেল ডকুমেন্ট রেন্ডার এবং ডাউনলোড ---
+
   const renderSingleDoc = (docUrl, index = 0) => {
     const fileType = getFileType(docUrl);
-    // ফাইলের নাম তৈরি করা (ভেন্ডর নেম + ইনডেক্স)
+
     const vendorName = selectedVendor?.profile?.id?.name || "vendor";
     const ext = docUrl.split('.').pop()?.split(/[?#]/)[0] || "file";
     const fileName = `${vendorName.replace(/\s+/g, '-').toLowerCase()}-document-${index + 1}.${ext}`;
