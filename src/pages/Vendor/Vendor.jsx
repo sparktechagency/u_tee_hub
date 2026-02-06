@@ -54,7 +54,7 @@ const statusColors = {
 // };
 
 const downloadFile = async (url) => {
-   const res = await fetch(url, { mode: "cors" });
+   const res = await fetch(url, { mode: "cors", cache: "no-cache" });
 
    if (!res.ok) throw new Error("Download failed");
 
